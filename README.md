@@ -1,6 +1,7 @@
 # Project Title
 
 Write a 1-2 sentences that quickly and clearly convey what your repo is for.
+Our repo explores the World Happiness Report over 2015-2019 across the countries of the world with measures of the world happiness index and mertrics of socioeconomic factors. 
 
 ## Overview
 
