@@ -1,25 +1,353 @@
 ---
 title: "final_project"
-format: html
+format: pdf
 ---
-
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
 ```{r}
-1 + 1
+# Import all necessary libraries for the entire qmd file 
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(kableExtra)
 ```
 
-You can add options to executable code like this 
-
 ```{r}
-#| echo: false
-2 * 2
+# Goal: Tidy the world happiness data so each year is integrated into one
+# data set. The resulting case is the happiness score for a country in a
+# specific year. Then complete EDA analysis by creating summary tables of
+# each feature and grouped by region. 
+
+# Need: all of the separate world happiness data csv (2015, 2016, 2017, 2018, # and 2019)
+
+# Plan
+# 1a. Read in all of the individual data sets (2015, 2016, 2017, 2018, and 2019) from our github repository
+# 2a. Tidy 2015 data
+# 2b. Remove standard error column as only appear in 2015 data and no other
+# analogs in the other data sets
+# 2c. Add in year column so when merge all data sets together, know this data
+# came from 2015
+# 3a. Tidy 2016 data
+# 3b. Remove confidence interval columns as only appear in 2016 data and no
+# other analogs in the other data sets
+# 3c. Add in year column so when merge all data sets together, know this data
+# came from 2016
+# 4a. Tidy 2017 data
+# 4b. Remove whisker columns as only appear in 2017 data and no other analogs
+# in the other data sets
+# 4c. Add in year column so when merge all data sets together, know this data
+# came from 2017
+# 5a. Tidy 2018 data
+# 5b. Rename columns in 2018 data so match with names of columns in 2015,
+# 2016, and 2017 data
+# 5c. Ensure government corruption treated as numeric, since numeric in all
+# other data sets
+# 5c. Add in year column so when merge all data sets together, know this data
+# came from 2018
+# 6a. Tidy 2019 data
+# 6b. Rename columns in 2019 data so match with names of columns in 2015,
+# 2016, 2017, and 2018 data
+# 6c. Add in year column so when merge all data sets together, know this data
+# came from 2019
+# 7a. Merge all tidied year data by adding the rows of each data set into a
+# total years data frame
+# 8a. Scrap region information for 2017, 2018, and 2019 from the 2015 and
+# 2016 data. (If the region is not listed in 2015/2016 or the country was not
+# surveyed then, the information was left as null)
+# 8b. Merge total years data with 2015 data by matching Country column
+# 8c. Add Region column to total data merged with data from 2015. First, add
+# regions already known for countries in 2015 and 2016. Then, add in regions
+# for the countries  in other years that match the countries from the 2015
+# data set.
+# 8d. Merge total years data with 2016 data by matching Country column
+# 8e. Add Region column to total data merged with data from 2016. First, add
+# regions already known for countries in 2015 and 2016. Then, add in regions
+# for the countries  in other years that match the countries from the 2016
+# data set.
+# 8f. Add new region data to final total data set
+# 9a. Tidy final total data set
+# 9b. Rename Family column to support system as this encompasses family and
+# friends as social support
+# 10a. Create a summary table based on each feature in the data set
+# 10b. Summarize across the numeric columns in the total data set
+# 10c. Get the measures of count, min, median, mean, max, and standard
+# deviation for each column, allowing for NA values.
+# 10d. Pivot longer so the case is a specific measure for each column
+# 10e. Separate wider so the column name and measure each have their own
+# column
+# 10f. Pivot wider so each measure becomes a new column
+# 11a. Create a summary table with a caption and kable styling.
+# 12a. Create a summary table grouped by region for each feature in the data
+# set
+# 12b. Summarize across the numeric columns in the total data set
+# 12c. Get the measures of count, min, median, mean, max, and standard
+# deviation for each column, allowing for NA values.
+# 12d. Pivot longer so the case is a specific measure for each column
+# 12e. Separate wider so the column name and measure each have their own
+# column
+# 12f. Pivot wider so each measure becomes a new column
+# 12g. Remove any NA's in the data set as those are countries whose region we
+# don't know and therefore can remove in this region based table.
+# 13a. Create a summary table with a caption and kable styling.
+data_2015 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/2015.csv")
+#View(data_2015)
+
+data_2016 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/2016.csv")
+#View(data_2016)
+
+data_2017 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/2017.csv")
+#View(data_2017)
+
+data_2018 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/2018.csv")
+#View(data_2018)
+
+data_2019 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/2019.csv")
+#View(data_2019)
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+# 2a. Tidy 2015 data
+# 2b. Remove standard error column as only appear in 2015 data and no other
+# analogs in the other data sets
+# 2c. Add in year column so when merge all data sets together, know this data
+# came from 2015
+data_2015 <- data_2015 |> select(!c(
+  "Standard.Error")
+  ) |> mutate(
+    Year = 2015
+  )
+
+```
+
+```{r}
+# 3a. Tidy 2016 data
+# 3b. Remove confidence interval columns as only appear in 2016 data and no
+# other analogs in the other data sets
+# 3c. Add in year column so when merge all data sets together, know this data
+# came from 2016
+data_2016 <- data_2016 |> select(!c(
+    "Lower.Confidence.Interval",
+    "Upper.Confidence.Interval"
+    )
+  ) |> mutate(
+    Year = 2016
+  )
+
+```
+
+```{r}
+# 4a. Tidy 2017 data
+# 4b. Remove whisker columns as only appear in 2017 data and no other analogs
+# in the other data sets
+# 4c. Add in year column so when merge all data sets together, know this data
+# came from 2017
+data_2017 <- data_2017 |> select(!c(
+    "Whisker.high",
+    "Whisker.low",
+    )
+  ) |> mutate(
+    Year = 2017
+  )
+
+```
+
+```{r}
+# 5a. Tidy 2018 data
+# 5b. Rename columns in 2018 data so match with names of columns in 2015,
+# 2016, and 2017 data
+# 5c. Ensure government corruption treated as numeric, since numeric in all
+# other data sets
+# 5c. Add in year column so when merge all data sets together, know this data
+# came from 2018
+data_2018 <- data_2018 |> rename(
+    Happiness.Rank = Overall.rank,
+    Country = Country.or.region,
+    Happiness.Score = Score,
+    Economy..GDP.per.Capita. = GDP.per.capita,
+    Family = Social.support,
+    Health..Life.Expectancy. = Healthy.life.expectancy,
+    Freedom = Freedom.to.make.life.choices,
+    Trust..Government.Corruption. = Perceptions.of.corruption
+  ) |> mutate(
+    Trust..Government.Corruption. = as.numeric(Trust..Government.Corruption.)
+  ) |> mutate(
+    Year = 2018
+  )
+
+```
+
+```{r}
+# 6a. Tidy 2019 data
+# 6b. Rename columns in 2019 data so match with names of columns in 2015,
+# 2016, 2017, and 2018 data
+# 6c. Add in year column so when merge all data sets together, know this data
+# came from 2019
+data_2019 <- data_2019 |> rename(
+    Happiness.Rank = Overall.rank,
+    Country = Country.or.region,
+    Happiness.Score = Score,
+    Economy..GDP.per.Capita. = GDP.per.capita,
+    Family = Social.support,
+    Health..Life.Expectancy. = Healthy.life.expectancy,
+    Freedom = Freedom.to.make.life.choices,
+    Trust..Government.Corruption. = Perceptions.of.corruption
+  ) |> mutate(
+    Year = 2019
+  )
+
+```
+
+```{r}
+# 7a. Merge all tidied year data by adding the rows of each data set into a
+# total years data frame
+total_data <- bind_rows(data_2015, data_2016, data_2017, data_2018, data_2019)
+
+```
+
+```{r}
+# 8a. Scrap region information for 2017, 2018, and 2019 from the 2015 and
+# 2016 data. (If the region is not listed in 2015/2016 or the country was not
+# surveyed then, the information was left as null)
+# 8b. Merge total years data with 2015 data by matching Country column
+# 8c. Add Region column to total data merged with data from 2015. First, add
+# regions already known for countries in 2015 and 2016. Then, add in regions
+# for the countries  in other years that match the countries from the 2015
+# data set.
+# 8d. Merge total years data with 2016 data by matching Country column
+# 8e. Add Region column to total data merged with data from 2016. First, add
+# regions already known for countries in 2015 and 2016. Then, add in regions
+# for the countries  in other years that match the countries from the 2016
+# data set.
+# 8f. Add new region data to final total data set
+total_data_merge <- total_data |> left_join(
+    x = total_data,
+    y = data_2015,
+    by = join_by(Country == Country)
+  )
+
+total_data_merge$Region = total_data_merge$Region.x
+total_data_merge$Region[!is.na(total_data_merge$Region.y)] = total_data_merge$Region.y[!is.na(total_data_merge$Region.y)]
+
+total_data_merge <- total_data_merge |> left_join(
+    x = total_data_merge,
+    y = data_2016,
+    by = join_by(Country == Country)
+  )
+
+total_data_merge$Region = total_data_merge$Region.x
+total_data_merge$Region[!is.na(total_data_merge$Region.y)] = total_data_merge$Region.y[!is.na(total_data_merge$Region.y)]
+total_data$Region <- total_data_merge$Region
+
+```
+
+```{r}
+# 9a. Tidy final total data set
+# 9b. Rename Family column to support system as this encompasses family and
+# friends as social support
+total_data <- total_data |>
+  rename(
+    Support.System = Family
+  )
+#View(total_data)
+
+```
+
+```{r}
+# 10a. Create a summary table based on each feature in the data set
+# 10b. Summarize across the numeric columns in the total data set
+# 10c. Get the measures of count, min, median, mean, max, and standard
+# deviation for each column, allowing for NA values.
+# 10d. Pivot longer so the case is a specific measure for each column
+# 10e. Separate wider so the column name and measure each have their own
+# column
+# 10f. Pivot wider so each measure becomes a new column
+total_data_summary <- total_data |>
+  summarise(across(
+    Happiness.Rank:Dystopia.Residual,
+    list(
+      count = length,
+      min = ~min(., na.rm = TRUE),
+      median = ~median(., na.rm = TRUE),
+      mean = ~mean(., na.rm = TRUE),
+      max = ~max(., na.rm = TRUE),
+      sd = ~sd(., na.rm = TRUE)
+      )
+    )
+  ) |> pivot_longer(
+    cols = Happiness.Rank_count:Dystopia.Residual_sd,
+    names_to = "Column_Measure",
+    values_to = "Value"
+  ) |> separate_wider_delim(
+    cols = Column_Measure,
+    delim = "_",
+    names = c("Column", "Measure")
+  ) |> pivot_wider(
+    names_from = Measure,
+    values_from = Value
+  )
+```
+
+```{r}
+# 11a. Create a summary table with a caption and kable styling.
+total_data_summary |>
+  kable(
+    caption = "Summary Statistics of each Feature in the World Happiness Index data set",
+    booktabs = TRUE,
+    align = c("l", rep("c", 6))
+  ) |> kableExtra::kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    font_size = 8
+  )
+```
+
+```{r}
+# 12a. Create a summary table grouped by region for each feature in the data
+# set
+# 12b. Summarize across the numeric columns in the total data set
+# 12c. Get the measures of count, min, median, mean, max, and standard
+# deviation for each column, allowing for NA values.
+# 12d. Pivot longer so the case is a specific measure for each column
+# 12e. Separate wider so the column name and measure each have their own
+# column
+# 12f. Pivot wider so each measure becomes a new column
+# 12g. Remove any NA's in the data set as those are countries whose region we
+# don't know and therefore can remove in this region based table.
+total_data_summary_region <- total_data |>
+  group_by(Region) |>
+  summarise(across(
+    Happiness.Rank:Dystopia.Residual,
+    list(
+      count = length,
+      min = ~min(., na.rm = TRUE),
+      median = ~median(., na.rm = TRUE),
+      mean = ~mean(., na.rm = TRUE),
+      max = ~max(., na.rm = TRUE),
+      sd = ~sd(., na.rm = TRUE)
+      )
+    )
+  ) |> pivot_longer(
+    cols = Happiness.Rank_count:Dystopia.Residual_sd,
+    names_to = "Column_Measure",
+    values_to = "Value"
+  ) |> separate_wider_delim(
+    cols = Column_Measure,
+    delim = "_",
+    names = c("Column", "Measure")
+  ) |> pivot_wider(
+    names_from = Measure,
+    values_from = Value
+  ) |> drop_na()
+```
+
+```{r}
+# 13a. Create a summary table with a caption and kable styling.
+total_data_summary_region |>
+  kable(
+    caption = "Summary Statistics of each Region in the World Happiness Index data set",
+    booktabs = TRUE,
+    align = c("l", rep("c", 6))
+  ) |> kableExtra::kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    font_size = 5
+  )
+```
+
