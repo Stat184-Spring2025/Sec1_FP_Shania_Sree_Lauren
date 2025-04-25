@@ -12,7 +12,40 @@ Quarto enables you to weave together content and executable code into a finished
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
 
 ```{r}
-1 + 1
+library(ggplot2) 
+library(dplyr)
+
+top10 <- data_2015 %>% #separating the top 10 countries based on their Happiness Score
+  arrange(desc(Happiness.Score)) %>% #taking from descending (1 - 10)
+  slice(1:10) %>%
+  pull(Country) #ensuring that i am pulling out the name of the countries
+
+bottom10 <- data_2015 %>% #doing the same thing here but for bottom 10
+  arrange(Happiness.Score) %>%
+  slice(1:10) %>%
+  pull(Country)
+
+countries <- c(top10, bottom10) #combining them
+
+countries_data <- bind_rows(data_2015, data_2019) %>%
+  filter(Country %in% countries) %>% #filtering by the country
+  group_by(Country, Year) %>%
+  summarize(score=mean(Happiness.Score), .groups='drop') #using the means of the Happiness Scores for the y-axis
+
+ggplot(countries_data, aes(x = Year, y = score, color = Country)) +
+  geom_line(size = 1.2) +  #adjusting the thickness of the line                                    
+  scale_color_manual(values = c("#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF",
+                                "#00FFFF", "#800000", "#008000", "#000080", "#808000",
+                                "#800080", "#008080", "#C0C0C0", "#808080", "#FF8000",
+                                "#80FF00", "#00FFFF", "#4682B4", "#ffd8b1", "#aaffc3")) + #customizing colors for each name
+  labs(
+    title = "Happiness Score Change between the top 10 and bottom 10 Countries in 2015 vs. 2019",
+    x = "Year",
+    y = "Happiness Score ",
+    color = "Country"
+  ) +
+  theme_minimal()                                              
+
 ```
 
 You can add options to executable code like this 
