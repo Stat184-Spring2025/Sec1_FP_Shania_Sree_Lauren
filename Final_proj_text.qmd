@@ -1,0 +1,93 @@
+---
+title: "Final Project"
+subtitle: "Stat 184"
+author: "Sree Penumuchu, Lauren Miller, Shania King"
+date: "May 6, 2025"
+format: 
+  pdf:
+    toc: false
+    code-fold: true
+    code-link: true
+    number-sections: true
+    number-depth: 5
+    fig-align: center
+    cap-location: top
+    geometry: 
+      - top = 1in
+      - left = 1in
+      - right = 1in
+      - bottom = 1in
+    colorlinks: true
+execute: 
+  echo: false
+  output: true
+  warning: false
+code-appendix: true
+---
+
+## Introduction
+
+The World Happiness Report is a landmark global survey that measures and ranks the happiness levels of nations, providing valuable insights into the well-being of populations worldwide. By analyzing factors such as GDP per capita, birth rate, freedom, people with access to resources like the internet, and perceptions of corruption, the report offers a comprehensive understanding of what contributes to a fulfilling life. Happiness, as a metric, goes beyond economic indicators to encompass emotional and social dimensions, making it a crucial tool for policymakers and researchers. However, happiness is a multifaceted concept that cannot be fully captured by a single measure, requiring a deeper examinations of cultural, environmental, and individual factors to truly understand what makes societies thrive and happy.
+
+In this project, we aim to explore two core research questions:
+
+1.  Does time have an effect on the happiness rate? (i.e. do the "happiest" countries tend to stay happy even after a certain number of years and do the "saddest" countries tend to stay sad even after a certain number of years?).
+2.  How does the birth rate in the data set correlate with its reported happiness levels? Are there any underlying socioeconomic factors that might explain the relationship?
+
+These questions explore gaps in how happiness persists over time and connects to demographic shifts like birth rates. The findings could inform policy decisions, highlighting the role of stability and population dynamics in well-being. The project aims to provide actionable insights that deepen the understanding of global happiness patterns.
+
+## Data Provenance
+
+For the purpose of this project, we used two datasets to explore the happiness rates across regions and also to explore the factors that could've had an impact on the happiness of the regions such as GDP. These datasets were found via reliable sources online and have gone through rigorous wrangling and tidying to result in a trustworthy final dataset for this project.
+
+#### Primary Dataset
+
+-   Source: Kaggle
+
+-   Description: This dataset contains happiness rankings and scores for over 150 countries from the years of 2015 to 2019 with metrics such as GDP per capita, social support, birth rate, freedom and corruption. It includes approximately over 150 rows which represent the countries and over 10 columns that represent the factors related to these countries.
+
+-   Purpose: This dataset is used to analyze the global well-being trends, to quantify drivers of happiness, and to provide evidence-based insights.
+
+-   Cases: Each row represents a country, with the columns giving details about its happiness score and other contributing factors.
+
+#### Secondary Dataset
+
+-   Source: Kaggle
+
+-   Description: This dataset contains information about factors such as economic, social, political, and environmental indicators for approximately over 260 countries from the years of 1960 to 2022. It has approximately 268 rows which represents the countries and 48 columns with numerical values for factors including GDP, birth rates, energy consumption, etc.
+
+-   Purpose: This secondary dataset is used to provide additional supprt to our initial goal of analyzing the global factors that can have an impact on a regions happiness score.
+
+-   Cases: Each row represents a country, with the columns giving economic, social, environmental, and governance details about the region.
+
+#### Data Wrangling
+
+To help us answer our research questions, we integrated the data from the primary and secondary datasets into a single dataset.
+
+**Merging:**
+
+-   The datasets were merged using the countries from both the primary and secondary datasets.
+
+-   By merging the datasets, we filtered out countries absent in the primary datatset, streamlining comparisons across regions present in both datasets.
+
+**Variable Selection:**
+
+-   We retained variables that will be necessary for answering our research questions such as the GDP of the country, birth rate, happiness score, etc.
+
+-   Unnecessary columns such as rule of law, agricultural land percent, forest land percent, etc. have been dropped to make the datasets more clear and concise.
+
+**Filtering and Cleaning:**
+
+-   Columns that were missing information in the secondary dataset were excluded to ensure that there was no bias within countries by excluding certain factors for some and including those influential factors for other regions.
+
+**Final Dataset:**
+
+***add in information once summary stats is done***
+
+### FAIR AND CARE Principles:
+
+***get from Shania***
+
+### Exploratory Data Analysis (EDA)
+
+### Research Questions
