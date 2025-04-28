@@ -1,6 +1,29 @@
 ---
-title: "final_project"
-format: pdf
+title: "Final Project"
+subtitle: "Stat 184"
+author: "Shania, Sree, and Lauren"
+date: "May 7, 2025"
+date-modified: now
+format:
+  pdf:
+    toc: false
+    code-fold: true
+    code-link: true
+    number-sections: true
+    number-depth: 5
+    fig-align: center
+    cap-location: top
+    geometry: 
+      - top = 1in
+      - left = 1in
+      - right = 1in
+      - bottom = 1in
+    colorlinks: true
+execute: 
+  echo: false
+  output: true
+  warning: false
+code-appendix: true
 ---
 ```{r}
 # Import all necessary libraries for the entire qmd file 
@@ -8,18 +31,26 @@ library(dplyr)
 library(tidyr)
 library(knitr)
 library(kableExtra)
+library(ggplot2)
+library(janitor)
 ```
 
+## World Happiness Index Data Wrangling and EDA
 ```{r}
+## World Happiness Index Data Wrangling and EDA
+
+
 # Goal: Tidy the world happiness data so each year is integrated into one
 # data set. The resulting case is the happiness score for a country in a
 # specific year. Then complete EDA analysis by creating summary tables of
 # each feature and grouped by region. 
 
-# Need: all of the separate world happiness data csv (2015, 2016, 2017, 2018, # and 2019)
+# Need: all of the separate world happiness data csv (2015, 2016, 2017, 2018,
+# and 2019)
 
 # Plan
-# 1a. Read in all of the individual data sets (2015, 2016, 2017, 2018, and 2019) from our github repository
+# 1a. Read in all of the individual data sets (2015, 2016, 2017, 2018, and
+# 2019) from our github repository
 # 2a. Tidy 2015 data
 # 2b. Remove standard error column as only appear in 2015 data and no other
 # analogs in the other data sets
@@ -110,8 +141,9 @@ data_2019 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1
 # analogs in the other data sets
 # 2c. Add in year column so when merge all data sets together, know this data
 # came from 2015
-data_2015 <- data_2015 |> select(!c(
-  "Standard.Error")
+data_2015 <- data_2015 |>
+  select(!c(
+    "Standard.Error")
   ) |> mutate(
     Year = 2015
   )
@@ -124,7 +156,8 @@ data_2015 <- data_2015 |> select(!c(
 # other analogs in the other data sets
 # 3c. Add in year column so when merge all data sets together, know this data
 # came from 2016
-data_2016 <- data_2016 |> select(!c(
+data_2016 <- data_2016 |>
+  select(!c(
     "Lower.Confidence.Interval",
     "Upper.Confidence.Interval"
     )
@@ -140,7 +173,8 @@ data_2016 <- data_2016 |> select(!c(
 # in the other data sets
 # 4c. Add in year column so when merge all data sets together, know this data
 # came from 2017
-data_2017 <- data_2017 |> select(!c(
+data_2017 <- data_2017 |>
+  select(!c(
     "Whisker.high",
     "Whisker.low",
     )
@@ -225,7 +259,8 @@ total_data_merge <- total_data |> left_join(
   )
 
 total_data_merge$Region = total_data_merge$Region.x
-total_data_merge$Region[!is.na(total_data_merge$Region.y)] = total_data_merge$Region.y[!is.na(total_data_merge$Region.y)]
+total_data_merge$Region[!is.na(total_data_merge$Region.y)] =
+  total_data_merge$Region.y[!is.na(total_data_merge$Region.y)]
 
 total_data_merge <- total_data_merge |> left_join(
     x = total_data_merge,
@@ -234,7 +269,8 @@ total_data_merge <- total_data_merge |> left_join(
   )
 
 total_data_merge$Region = total_data_merge$Region.x
-total_data_merge$Region[!is.na(total_data_merge$Region.y)] = total_data_merge$Region.y[!is.na(total_data_merge$Region.y)]
+total_data_merge$Region[!is.na(total_data_merge$Region.y)] =
+  total_data_merge$Region.y[!is.na(total_data_merge$Region.y)]
 total_data$Region <- total_data_merge$Region
 
 ```
@@ -287,6 +323,11 @@ total_data_summary <- total_data |>
 ```
 
 ```{r}
+#| label: tbl-summaryvariablesworldhappiness
+#| tbl-cap: "Summary Statistics for each variable in the World Happiness Index Data"
+#| tbl-pos: H
+#| lst-label: lst-table1
+#| lst-cap: "Code Chunk for Making World Happiness Summary Stats Enlisted"
 # 11a. Create a summary table with a caption and kable styling.
 total_data_summary |>
   kable(
@@ -298,6 +339,7 @@ total_data_summary |>
     font_size = 8
   )
 ```
+In @tbl-summaryvariablesworldhappiness
 
 ```{r}
 # 12a. Create a summary table grouped by region for each feature in the data
@@ -339,6 +381,11 @@ total_data_summary_region <- total_data |>
 ```
 
 ```{r}
+#| label: tbl-regionsummaryworldhappiness
+#| tbl-cap: "Summary Statistics for each variable, grouped based on Region, from the world happiness index data set"
+#| tbl-pos: H
+#| lst-label: lst-table1
+#| lst-cap: "Code Chunk for Making Summary Table Based on Region Enlisted"
 # 13a. Create a summary table with a caption and kable styling.
 total_data_summary_region |>
   kable(
@@ -349,5 +396,510 @@ total_data_summary_region |>
     bootstrap_options = c("striped", "condensed"),
     font_size = 5
   )
+
+
+```
+In @tbl-regionsummaryworldhappiness
+
+## World Bank Data Wrangling and EDA
+```{r}
+## World Bank Data Wrangling and EDA
+
+
+# Goal: Tidy the world bank data so only the years and countries included in
+# the world happiness index remain. Also, subset the variables to only
+# include country, year, and our selected features (access to electricity,
+# individuals using the internet, and birth rate). The resulting case is the
+# information for a country in a specific year. Then complete EDA analysis by
+# creating summary tables of each feature and scatter plots of happiness
+# score v percentage of individuals using the internet, birth rate, and
+# access to electricity.
+
+# Need: the data from the world bank data set
+
+# Plan
+# 1a. Read in the world bank data set from our github repository
+# 2a. Tidy world bank data
+# 2b. Isolate the Year in the date measurement, by splitting the date column
+# by the dash delimiter into Year, Month, Day. We only care about the year,
+# because all of the measurements were taken on January 1st of each year.
+# 2c. Filter the year column by the years of our world happiness index data
+# set (2015, 2016, 2017, 2018, and 2019)
+# 2d. Filter the country column by the countries in the world happiness index
+# data set
+# 2e. Select the columns we want to keep from the data set: year, country,
+# access to electricity, individuals using internet, and birth rate
+# 2f. Rename the access to electricity, individuals using internet, and birth
+# rate columns
+# 3a. Create a summary table for access to electricity, individuals using
+# internet and birth rate in the data set.
+# 3b. Summarize across the columns in the total data set
+# 3c. Get the measures of count, min, median, mean, max, and standard
+# deviation for each column, allowing for NA values.
+# 3d. Pivot longer so the case is a specific measure for each column
+# 3e. Separate wider so the column name and measure each have their own
+# column
+# 3f. Pivot wider so each measure becomes a new column
+# 4a. Create a summary table with a caption and kable styling.
+# 5a. Merge world happiness index data and world bank data
+# 5b. Ensure year column in world bank data is treated as numeric, as using
+# as one of the columns to join the table on
+# 5c. Use a left join on the world happiness index data and the world bank
+# data, using the columns country and year. Remove rows where there is no
+# data for individuals using internet, birth rate, and access to electricity
+# 6a. Create a scatter plot of percentage of individuals using the internet
+# versus the country's happiness score.
+# 6b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+# 7a. Create a scatter plot of the birth rate versus the country's happiness
+# score.
+# 7b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+# 8a. Create a scatter plot of access to electricity versus the country's
+# happiness score.
+# 8b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+
+# 1a. Read in the world bank data set from our github repository
+world_bank_data <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/world_bank_development_indicators.csv")
+#View(world_bank_data)
 ```
 
+```{r}
+# 2a. Tidy world bank data
+# 2b. Isolate the Year in the date measurement, by splitting the date column
+# by the dash delimiter into Year, Month, Day. We only care about the year,
+# because all of the measurements were taken on January 1st of each year.
+# 2c. Filter the year column by the years of our world happiness index data
+# set (2015, 2016, 2017, 2018, and 2019)
+# 2d. Filter the country column by the countries in the world happiness index
+# data set
+# 2e. Select the columns we want to keep from the data set: year, country,
+# access to electricity, individuals using internet, and birth rate
+# 2f. Rename the access to electricity, individuals using internet, and birth
+# rate columns
+total_data_country <- total_data$Country
+world_bank_tidy <- world_bank_data |>
+  separate_wider_delim(
+    cols = date,
+    delim = "-",
+    names = c("Year", "Month", "Day")
+  ) |> filter(
+    (Year %in% c(2015, 2016, 2017, 2018, 2019))
+  ) |> filter(
+    (country %in% c(total_data_country))
+  ) |> select(
+    c(country, Year, access_to_electricity., individuals_using_internet., birth_rate)
+  ) |> rename(
+    access.to.electricity = access_to_electricity.,
+    individuals.using.internet = individuals_using_internet.,
+    birth.rate = birth_rate
+  )
+
+```
+
+```{r}
+# 3a. Create a summary table for access to electricity, individuals using
+# internet and birth rate in the data set.
+# 3b. Summarize across the columns in the total data set
+# 3c. Get the measures of count, min, median, mean, max, and standard
+# deviation for each column, allowing for NA values.
+# 3d. Pivot longer so the case is a specific measure for each column
+# 3e. Separate wider so the column name and measure each have their own
+# column
+# 3f. Pivot wider so each measure becomes a new column
+world_bank_summary <- world_bank_tidy |>
+  summarise(across(
+    access.to.electricity:birth.rate,
+    list(
+      count = length,
+      min = ~min(., na.rm = TRUE),
+      median = ~median(., na.rm = TRUE),
+      mean = ~mean(., na.rm = TRUE),
+      max = ~max(., na.rm = TRUE),
+      sd = ~sd(., na.rm = TRUE)
+      )
+    )
+  ) |> pivot_longer(
+    cols = access.to.electricity_count:birth.rate_sd,
+    names_to = "Column_Measure",
+    values_to = "Value"
+  ) |> separate_wider_delim(
+    cols = Column_Measure,
+    delim = "_",
+    names = c("Column", "Measure")
+  ) |> pivot_wider(
+    names_from = Measure,
+    values_from = Value
+  )
+
+```
+
+```{r}
+#| label: tbl-summaryworldbank
+#| tbl-cap: "Summary Statistics of each feature from the World Bank data set"
+#| tbl-pos: H
+#| lst-label: lst-table1
+#| lst-cap: "Code Chunk for Making World Bank Summary Table"
+# 4a. Create a summary table with a caption and kable styling.
+world_bank_summary |>
+  kable(
+    caption = "Summary Statistics of each Feature in the World Bank data set",
+    booktabs = TRUE,
+    align = c("l", rep("c", 6))
+  ) |> kableExtra::kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    font_size = 8
+  )
+```
+In @tbl-summaryworldbank
+
+```{r}
+# 5a. Merge world happiness index data and world bank data
+# 5b. Ensure year column in world bank data is treated as numeric, as using
+# as one of the columns to join the table on
+# 5c. Use a left join on the world happiness index data and the world bank
+# data, using the columns country and year. Remove rows where there is no
+# data for individuals using internet, birth rate, and access to electricity 
+world_bank_tidy <- world_bank_tidy |>
+  mutate(
+    Year = as.numeric(Year)
+  )
+
+merged_data <- total_data |>
+  left_join(
+    x = total_data,
+    y = world_bank_tidy,
+    by = join_by(Country == country, Year == Year)
+  ) |> drop_na(c(individuals.using.internet, birth.rate, access.to.electricity))
+
+```
+
+```{r}
+#| label: fig-internetplot
+#| fig-cap: "Happiness Score versus Percentage of Individuals Using the Internet"
+#| fig-pos: H
+#| fig-height: 5
+#| fig-alt: "Scatterplot of happiness score v internet"
+#| lst-cap: "Code Chunk for Making Happiness Score v Internet Figure"
+# 6a. Create a scatter plot of percentage of individuals using the internet
+# versus the country's happiness score.
+# 6b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+ggplot(
+  data = merged_data,
+  mapping = aes(
+    x = individuals.using.internet,
+    y = Happiness.Score
+  )
+) + geom_point() + labs(
+  x = "Percentage of Individuals Using the Internet",
+  y = "Happiness Score",
+  title = "Happiness Score v Percentage of Individuals Using the Internet"
+) + theme_bw()
+
+```
+In @fig-internetplot
+
+```{r}
+#| label: fig-birthrateplot
+#| fig-cap: "Happiness Score versus Birth Rate"
+#| fig-pos: H
+#| fig-height: 5
+#| fig-alt: "Scatterplot of happiness score v birth rate"
+#| lst-cap: "Code Chunk for Making Happiness Score v birth rate Figure"
+# 7a. Create a scatter plot of the birth rate versus the country's happiness
+# score.
+# 7b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+ggplot(
+  data = merged_data,
+  mapping = aes(
+    x = birth.rate,
+    y = Happiness.Score
+  )
+) + geom_point() + labs(
+  x = "Birth Rate",
+  y = "Happiness Score",
+  title = "Happiness Score v Birth Rate"
+) + theme_bw()
+
+```
+In @fig-birthrateplot
+
+```{r}
+#| label: fig-electricityplot
+#| fig-cap: "Happiness Score versus Access to Electricity"
+#| fig-pos: H
+#| fig-height: 5
+#| fig-alt: "Scatterplot of happiness score v electricity"
+#| lst-cap: "Code Chunk for Making Happiness Score v eletricity Figure"
+# 8a. Create a scatter plot of access to electricity versus the country's
+# happiness score.
+# 8b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+ggplot(
+  data = merged_data,
+  mapping = aes(
+    x = access.to.electricity,
+    y = Happiness.Score
+  )
+) + geom_point() + labs(
+  x = "Access to Electricity",
+  y = "Happiness Score",
+  title = "Happiness Score v Access to Electricity"
+) + theme_bw()
+
+
+```
+In @fig-electricityplot
+
+## Visualization 1 - Frequency Table of Happiness Scores and Region
+```{r}
+## Visualization 1 - Frequency Table of Happiness Scores and Region
+
+
+# Goal: Create a frequency table of the binned happiness scores against each
+# region. The scores should be binned, as they are currently in decimal form,
+# therefore generalizing them will allow for greater comparison power.
+
+# Need: tidied world happiness index data
+
+# Plan
+# 1a. Reform world happiness index data so it can be used to create a
+# frequency table
+# 1b. Bin the happiness score in the world happiness index data (going by 0.5
+# stop inclusive, from 0 - 10)
+# 1c. Drop any rows in the data set where the country region is unknown, as
+# meant to be comparing across regions
+# 2a. Create region and happiness score world happiness index relative
+# frequency table
+# 2b. Call tabyl function with region as row and happiness score as column
+# 2e. Add marginal totals
+# 2f. Add percentages
+# 2g. Set decimals to two places
+# 2h. Add row and column titles
+# 3a. Polish region and happiness score relative frequency table
+# 3b. Put percentages for each cell in parentheses
+# 3c. Add commas to numbers over nine hundred and ninety nine
+# 3d. Add counts
+# 3e. Add title and kableExtra for styling
+
+# 1a. Reform world happiness index data so it can be used to create a
+# frequency table
+# 1b. Bin the happiness score in the world happiness index data (going by 0.5
+# stop inclusive, from 0 - 10)
+# 1c. Drop any rows in the data set where the country region is unknown, as
+# meant to be comparing across regions 
+total_data_summary_region <- total_data |> mutate(
+  binned.happiness.score = case_when(
+    Happiness.Score <= 0.5 ~ "0 - 0.5",
+    Happiness.Score > 0.5 & Happiness.Score <= 1 ~ "0.5 - 1",
+    Happiness.Score > 1 & Happiness.Score <= 1.5 ~ "1 - 1.5",
+    Happiness.Score > 1.5 & Happiness.Score <= 2 ~ "1.5 - 2",
+    Happiness.Score > 2 & Happiness.Score <= 2.5 ~ "2 - 2.5",
+    Happiness.Score > 2.5 & Happiness.Score <= 3 ~ "2.5 - 3",
+    Happiness.Score > 3 & Happiness.Score <= 3.5 ~ "3 - 3.5",
+    Happiness.Score > 3.5 & Happiness.Score <= 4 ~ "3.5 - 4",
+    Happiness.Score > 4 & Happiness.Score <= 4.5 ~ "4 - 4.5",
+    Happiness.Score > 4.5 & Happiness.Score <= 5 ~ "4.5 - 5",
+    Happiness.Score > 5 & Happiness.Score <= 5.5 ~ "5 - 5.5",
+    Happiness.Score > 5.5 & Happiness.Score <= 6 ~ "5.5 - 6",
+    Happiness.Score > 6 & Happiness.Score <= 6.5 ~ "6 - 6.5",
+    Happiness.Score > 6.5 & Happiness.Score <= 7 ~ "6.5 - 7",
+    Happiness.Score > 7 & Happiness.Score <= 7.5 ~ "7 - 7.5",
+    Happiness.Score > 7.5 & Happiness.Score <= 8 ~ "7.5 - 8",
+    Happiness.Score > 8 & Happiness.Score <= 8.5 ~ "8 - 8.5",
+    Happiness.Score > 8.5 & Happiness.Score <= 9 ~ "8.5 - 9",
+    Happiness.Score > 9 & Happiness.Score <= 9.5 ~ "9 - 9.5",
+    Happiness.Score > 9.5 & Happiness.Score <= 10 ~ "9.5 - 10"
+    )
+  ) |> drop_na(Region)
+
+```
+
+```{r}
+# 2a. Create region and happiness score world happiness index relative
+# frequency table
+# 2b. Call tabyl function with region as row and happiness score as column
+# 2e. Add marginal totals
+# 2f. Add percentages
+# 2g. Set decimals to two places
+# 2h. Add row and column titles
+world_happy_freq <- total_data_summary_region |>
+  tabyl(
+    Region, binned.happiness.score
+  ) |> adorn_totals(
+    where = c("row", "col")
+  ) |> adorn_percentages(
+    denominator = "all"
+  ) |> adorn_pct_formatting(
+    digits = 2
+  ) |> adorn_title(
+    placement = "combined",
+    row_name = "Region",
+    col_name = "Happiness Score"
+  )
+
+```
+
+```{r}
+#| label: tbl-regionvhappinessscore
+#| tbl-cap: "Region and Happiness Score Frequency Table"
+#| tbl-pos: H
+#| lst-label: lst-table1
+#| lst-cap: "Code Chunk for Making Region/Happiness Freq Table"
+# 3a. Polish region and happiness score relative frequency table
+# 3b. Put percentages for each cell in parentheses
+# 3c. Add commas to numbers over nine hundred and ninety nine
+# 3d. Add counts
+# 3e. Add title and kableExtra for styling
+formatNs <-
+  attr(
+    world_happy_freq, "core"
+  ) |> adorn_totals(
+    where = c("row", "col")
+  ) |> mutate(
+    across(where(is.numeric), \(x) format(x, big.mark = ",", na.rm = TRUE))
+  )
+
+world_happy_freq <- world_happy_freq |>
+  adorn_ns(
+    position = "front", ns = formatNs
+  )
+
+world_happy_freq |>
+  kable(
+    caption = "Region and Happiness Score of Countires in the World Happiness Index 2015 - 2019",
+    booktabs = TRUE,
+    align = c("l", rep("c", 6))
+  ) |> kableExtra::kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    font_size = 3
+  )
+
+
+
+```
+In @tbl-regionvhappinessscore
+
+## Visualization 2 - Scatter plot of Happiness Score v Birth Rate
+```{r}
+## Visualization 2 - Scatter plot of Happiness Score v Birth Rate
+
+
+# Goal: Create a scatter plot of the birth rate versus the country's happiness score. 
+
+# Need: merged data set of world happiness index data and world bank data
+
+# Plan
+# 1a. Create a scatter plot of birth rate versus the country's happiness
+# score.
+# 1b. Specify the wrangled data to be used, the x axis, the y
+# axis, and what the color of each point is based on, the happiness score
+# 1c. Specify aesthetic geometry, point
+# 1d. Create a linear trend line with no confidence interval, set the color
+# to black, and set the line width
+# 1e. Add labels to the x axis, y axis, color, and the title, add black and
+# white theme
+
+```
+
+```{r}
+#| label: fig-finalbirthrateplot
+#| fig-cap: "Happiness Score versus Birth Rate"
+#| fig-alt: "Final Scatterplot of happiness score v birth rate"
+#| lst-cap: "Code Chunk for Making Final Happiness Score v Birth Rate Figure"
+#| fig-pos: H
+#| fig-height: 5
+# 1a. Create a scatter plot of birth rate versus the country's happiness
+# score.
+# 1b. Specify the wrangled data to be used, the x axis, the y
+# axis, and what the color of each point is based on, the happiness score
+# 1c. Specify aesthetic geometry, point
+# 1d. Create a linear trend line with no confidence interval, set the color
+# to black, and set the line width
+# 1e. Add labels to the x axis, y axis, color, and the title, add black and
+# white theme
+ggplot(
+  data = merged_data,
+  mapping = aes(
+    x = birth.rate,
+    y = Happiness.Score,
+    color = Happiness.Score
+  )
+) + geom_point(
+  size = 2
+) + geom_smooth(
+  method = lm,
+  formula = y ~ x,
+  se = FALSE,
+  col = '#000000',
+  linewidth = 2
+) + labs(
+  x = "Birth Rate",
+  y = "Happiness Score",
+  color = "Happiness Score",
+  title = "Happiness Score v Birth Rate"
+) + theme_bw()
+
+
+
+```
+In @fig-finalbirthrateplot
+
+## Visualization 3
+```{r}
+
+top10 <- data_2015 %>% #separating the top 10 countries based on their Happiness Score
+  arrange(desc(Happiness.Score)) %>% #taking from descending (1 - 10)
+  slice(1:10) %>%
+  pull(Country) #ensuring that i am pulling out the name of the countries
+
+bottom10 <- data_2015 %>% #doing the same thing here but for bottom 10
+  arrange(Happiness.Score) %>%
+  slice(1:10) %>%
+  pull(Country)
+
+countries <- c(top10, bottom10) #combining them
+
+countries_data <- bind_rows(data_2015, data_2019) %>%
+  filter(Country %in% countries) %>% #filtering by the country
+  group_by(Country, Year) %>%
+  summarize(score=mean(Happiness.Score), .groups='drop') #using the means of the Happiness Scores for the y-axis
+
+ggplot(countries_data, aes(x = Year, y = score, color = Country)) +
+  geom_line(size = 1.2) +  #adjusting the thickness of the line                                    
+  scale_color_manual(values = c("#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF",
+                                "#00FFFF", "#800000", "#008000", "#000080", "#808000",
+                                "#800080", "#008080", "#C0C0C0", "#808080", "#FF8000",
+                                "#80FF00", "#00FFFF", "#4682B4", "#ffd8b1", "#aaffc3")) + #customizing colors for each name
+  labs(
+    title = "Happiness Score Change between the top 10 and bottom 10 Countries in 2015 vs. 2019",
+    x = "Year",
+    y = "Happiness Score ",
+    color = "Country"
+  ) +
+  theme_minimal()                                              
+
+```
+
+## References
+
+“World Happiness Report.” www.kaggle.com,
+
+      www.kaggle.com/datasets/unsdsn/world-happiness.
+
+
+González, Ariel. “World Bank World Development Indicators.”
+
+      Kaggle.com, 2022,
+      
+      www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-
+      
+      world-development-indicators?resource=download.
+
+## Code Appendix
+
+```{r codeAppend, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
