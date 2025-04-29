@@ -889,12 +889,6 @@ In @fig-finalbirthrateplot
 
 ```{r}
 
-#| label: fig-finalhappinessovertimeplot
-#| fig-cap: "Happiness Score Change between the top 5 and bottom 5 Countries in 2015 vs. 2019"
-#| fig-alt: "Final Line plot of happiness score over time"
-#| lst-cap: "Code Chunk for Making Final Happiness Score over time"
-#| fig-pos: H
-#| fig-height: 5
 # 1a. Insert the ggplot2 and dplyr libraries
 library(ggplot2) 
 library(dplyr)
@@ -951,7 +945,12 @@ countries_data <- bind_rows(data_2015, data_2019) %>%
 ```
 
 ```{r}
-
+#| label: fig-finalhappinessovertimeplot
+#| fig-cap: "Happiness Score Change between the top 5 and bottom 5 Countries in 2015 vs. 2019"
+#| fig-alt: "Final Line plot of happiness score over time"
+#| lst-cap: "Code Chunk for Making Final Happiness Score over time"
+#| fig-pos: H
+#| fig-height: 5
 # 6a. Create the line plot
 # 6b. Set the x and y axis, the geometry of each mark, and assign each country
 # to a color, making it easier to differenciate. 
