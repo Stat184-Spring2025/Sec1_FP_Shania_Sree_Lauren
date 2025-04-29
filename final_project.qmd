@@ -1,58 +1,123 @@
----
-title: "final_project"
-format: html
----
+## Visualization 3 - Line Plot of Happiness Score over time between the Top 5 and Bottom 5 Countries
+```{r}
 
-## Quarto
+## Visualization 3 - Line Plot of Happiness Score over time between the Top 5 and Bottom 5 Countries
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
-## Running Code
+# Goal: Obtain the Top 5 happiest countries and 
+# the Bottom 5 happiest countries in 2015. Compare
+# those countries with where they appear on this 
+# chart in 2019. Evaluate the increases and decreases
+# that occur between those 4 years.
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+# Need: the cleaned 2015 and 2019 data from the World Bank Data set
+
+# Plan
+# 1a. Insert the ggplot2 and dplyr libraries
+# 2a. Create a variable for the top 5 countries in 2015
+# 2b. Isolate those countries by arranging the Happiness Score
+# in descending order. Then, taking each country from 1-5. Then,
+# taking the name of each Country
+# 3a. Create a variable for the bottom 5 countries in 2015
+# 3b. Isolate those countries by arranging the Happiness Score.
+# Then, taking each country from 1-5. Then,
+# taking the name of each Country
+# 4a. Combine the top 5 and bottom 5 variables into one 
+# variable named Countries
+# 5a. Create a new variable containing the data for each country
+# 5b. Firstly, we want to combine the rows from the 2015 and 2019
+# data set. Then, filter the data by the name of the countries.
+# Next, group by the country and the year, which would show each 
+# country twice: the score in 2015 and the score in 2019. Lastly,
+# summarize each by the mean Happiness Score
+# 6a. Create the line plot
+# 6b. Set the x and y axis, the geometry of each mark, and assign each country
+# to a color, making it easier to differenciate. 
+# 6c. Add the labels for each axis, and the title
+
+```
 
 ```{r}
+
+#| label: fig-finalhappinessovertimeplot
+#| fig-cap: "Happiness Score Change between the top 5 and bottom 5 Countries in 2015 vs. 2019"
+#| fig-alt: "Final Line plot of happiness score over time"
+#| lst-cap: "Code Chunk for Making Final Happiness Score over time"
+#| fig-pos: H
+#| fig-height: 5
+# 1a. Insert the ggplot2 and dplyr libraries
 library(ggplot2) 
 library(dplyr)
 
-top10 <- data_2015 %>% #separating the top 10 countries based on their Happiness Score
-  arrange(desc(Happiness.Score)) %>% #taking from descending (1 - 10)
-  slice(1:10) %>%
-  pull(Country) #ensuring that i am pulling out the name of the countries
+```
 
-bottom10 <- data_2015 %>% #doing the same thing here but for bottom 10
+```{r}
+
+# 2a. Create a variable for the top 5 countries in 2015
+# 2b. Isolate those countries by arranging the Happiness Score
+# in descending order. Then, taking each country from 1-5. Then,
+# taking the name of each Country
+top5 <- data_2015 %>% 
+  arrange(desc(Happiness.Score)) %>% 
+  slice(1:5) %>%
+  pull(Country) 
+
+```
+
+```{r}
+
+# 3a. Create a variable for the bottom 5 countries in 2015
+# 3b. Isolate those countries by arranging the Happiness Score.
+# Then, taking each country from 1-5. Then,
+# taking the name of each Country
+bottom5 <- data_2015 %>% 
   arrange(Happiness.Score) %>%
-  slice(1:10) %>%
+  slice(1:5) %>%
   pull(Country)
 
-countries <- c(top10, bottom10) #combining them
+```
 
+```{r}
+
+# 4a. Combine the top 5 and bottom 5 variables into one 
+# variable named countries
+countries <- c(top5, bottom5) 
+
+```
+
+```{r}
+
+# 5a. Create a new variable containing the data for each country
+# 5b. Firstly, we want to combine the rows from the 2015 and 2019
+# data set. Then, filter the data by the name of the countries.
+# Next, group by the country and the year, which would show each 
+# country twice: the score in 2015 and the score in 2019. Lastly,
+# summarize each by the mean Happiness Score
 countries_data <- bind_rows(data_2015, data_2019) %>%
-  filter(Country %in% countries) %>% #filtering by the country
+  filter(Country %in% countries) %>% 
   group_by(Country, Year) %>%
-  summarize(score=mean(Happiness.Score), .groups='drop') #using the means of the Happiness Scores for the y-axis
+  summarize(score=mean(Happiness.Score), .groups='drop') 
 
+```
+
+```{r}
+
+# 6a. Create the line plot
+# 6b. Set the x and y axis, the geometry of each mark, and assign each country
+# to a color, making it easier to differenciate. 
+# 6c. Add the labels for each axis, and the title
 ggplot(countries_data, aes(x = Year, y = score, color = Country)) +
   geom_line(size = 1.2) +  #adjusting the thickness of the line                                    
   scale_color_manual(values = c("#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF",
-                                "#00FFFF", "#800000", "#008000", "#000080", "#808000",
-                                "#800080", "#008080", "#C0C0C0", "#808080", "#FF8000",
-                                "#80FF00", "#00FFFF", "#4682B4", "#ffd8b1", "#aaffc3")) + #customizing colors for each name
+                                "#00FFFF", "#800000", "#008000", "#000080", "#808000")) + #customizing colors for each name
   labs(
-    title = "Happiness Score Change between the top 10 and bottom 10 Countries in 2015 vs. 2019",
+    title = "Happiness Score Change between the top 5 and bottom 5 Countries in 2015 vs. 2019",
     x = "Year",
     y = "Happiness Score ",
     color = "Country"
   ) +
-  theme_minimal()                                              
+  theme_minimal()         
 
 ```
 
-You can add options to executable code like this 
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
+In @fig-finalhappinessovertimeplot
