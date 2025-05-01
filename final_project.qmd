@@ -416,7 +416,7 @@ total_data_summary |>
     font_size = 8
   )
 ```
-Key Insights:
+**Key Insights:**
 
 Happiness scores range widely (2.69-7.77), with a mean of 5.38 (~1.13 SD).
 
@@ -582,7 +582,7 @@ world_bank_summary |>
     font_size = 8
   )
 ```
-Key Insights:
+**Key Insights:**
 
 Electricity access is bimodal as the median is 99.6% of the countries having access to electricity but the mean is 82.5% due to low access outliers. 
 
@@ -691,6 +691,9 @@ ggplot(
 In @fig-electricityplot
 
 ## Visualization 1 - Frequency Table of Happiness Scores and Region
+
+This table examines the distribution of happiness scores across 10 global regions (5 of the highest-scoring and 5 of the lower-scoring regions) over a five-year period, categorizing countries into score ranges of 2.5 to 8 to identify patterns. With this data, we can explore the question of whether happiness rankings stay consistent over time.
+
 ```{r}
 ## Visualization 1 - Frequency Table of Happiness Scores and Region
 
@@ -814,12 +817,25 @@ world_happy_freq |>
     font_size = 3
   )
 
+**Key Insights:**
 
+**Regional Happiness Clusters Persist Over Time (from 2015-2019):**
+
+Regions such as Australia/NZ (100% in the 6.5-7.5 range) and Western Europe (~67.96% in the 6.5-8 range) consistently rank the highest, suggesting long-established advantages like strong GDP, social support, etc. 
+
+There is also a low score stability with a region like Sub-Saharan Africa which dominates the bottom tiers (21.1% in the 2.5-3.5 range), indicating persistent challenges such as limited infrastructure investments, and political instability. 
+
+**There is Limited Mobility Between Tiers:**
+
+While there are some regions such as the Middle East/North Africa and Latin America, that show a moderate spread across the mid-range scores, indicating some form of change, there are no countries that transitioned from the bottom quartile (<4) to the top quartile (>6) or vice versa. 
+
+This answers our first research question, proving that happiness is consistent and that there is little change when it comes to happiness scores over time. The countries that had an initially high-score continue to consistently stay high and similarly the countries that initially had low score consistently have stayed in the lower quartile, showing that there long-term factors such as GDP and governance that plays a role in short-term fluctuations. 
 
 ```
 In @tbl-regionvhappinessscore
 
 ## Visualization 2 - Scatter plot of Happiness Score v Birth Rate
+
 ```{r}
 ## Visualization 2 - Scatter plot of Happiness Score v Birth Rate
 
