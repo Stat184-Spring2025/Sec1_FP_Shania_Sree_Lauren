@@ -8,14 +8,17 @@ This project focuses on two research questions:
  
  1: Does time have an effect on happiness rate?
 
- 2: How does the birth rate in the data set correlate with it's reported happiness        levels?
+ 2: How does the birth rate in the data set correlate with it's reported happiness levels?
 
 Our analysis of these questions highlights the correlation with birth rate and happiness, as well as identify if the happiest countries and the unhappiest countries stay consistent over a period of time. 
 
 ### Interesting Insight
 
-This is optional but highly recommended. You'll include one interesting insight from your project as part of the README. This insight is most effective when you include a visual. Keep in mind that this visual must be included as an image file (e.g., JPG, PNG, etc.). You can export plots created with `{ggplot2}` by using the function `ggsave`.
+Given that our project centers around the Happiness Scores of over 100 countries, our most interesting insight comes from our visualization showing if happiness changed over the course of five years for the top and bottom 5 countries.
 
+<img width="497" alt="Screenshot 2025-05-01 at 3 56 08 PM" src="https://github.com/user-attachments/assets/b32c95ca-8058-41a9-9312-98de5f50e915" />
+
+This gives us key information about whether a countries' happiness score stays consistent or not throughout the years. For any increases or decreases, we can look deeper into the countries and look for any outside factors that contributed to this change.
 
 ## Repo Structure
 
@@ -39,13 +42,12 @@ This is optional but highly recommended. You'll include one interesting insight 
 
 - The primary dataset was sourced from Kaggle (https://www.kaggle.com/datasets/unsdsn/world-happiness/data)
 - The secondary dataset was sourced from Kaggle (https://www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators)
-- This project was completed by:
-  1.
-  2.
-  3. 
-
-Be sure to list where you got any data used within the project. Be sure to acknowledge any one whose work or elements you're drawing upon.
 
 ## Authors
 
-Give information about who are the authors of the project and how people can get in touch if they have questions.
+This project was completed by:
+  1. Shania King | Email: sfk5867@psu.edu
+  2. Lauren Miller | Email: lfm5648@psu.edu
+  3. Sree Penumuchu | Email: skp5994@psu.edu
+
+Please reach out if you have any questions!
