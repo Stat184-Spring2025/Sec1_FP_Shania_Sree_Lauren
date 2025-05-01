@@ -96,6 +96,7 @@ The datasets used in this report adhere to the FAIR principles, highlighting the
 - Through our data wrangling process, we changed the column name referring to family/social to social support. We also accounted for any data not measured as null. By doing so, we cleaned up the structure making it easier for future use
 
 Considering that neither dataset includes any sensitive or personal data, we still highlighted ethical practices throughout our project. Both datasets are publicly available and our analysis and primary questions asked do not hurt any individuals.  
+
 ```{r}
 # Import all necessary libraries for the entire qmd file 
 library(dplyr)
