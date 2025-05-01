@@ -692,7 +692,7 @@ In @fig-electricityplot
 
 ## Visualization 1 - Frequency Table of Happiness Scores and Region
 
-This table examines the distribution of happiness scores across 10 global regions (5 of the highest-scoring and 5 of the lower-scoring regions) over a five-year period, categorizing countries into score ranges of 2.5 to 8 to identify patterns. With this data, we can explore the question of whether happiness rankings stay consistent over time.
+This table examines the distribution of happiness scores across 10 global regions over a five-year period, categorizing countries into score ranges of 2.5 to 8 to identify patterns. With this data, we can explore the question of whether happiness rankings stay consistent over time.
 
 ```{r}
 ## Visualization 1 - Frequency Table of Happiness Scores and Region
@@ -707,7 +707,7 @@ This table examines the distribution of happiness scores across 10 global region
 # Plan
 # 1a. Reform world happiness index data so it can be used to create a
 # frequency table
-# 1b. Bin the happiness score in the world happiness index data (going by 0.5
+# 1b. Bin the happiness score in the World Happiness Index data (going by 0.5
 # stop inclusive, from 0 - 10)
 # 1c. Drop any rows in the data set where the country region is unknown, as
 # meant to be comparing across regions
@@ -836,6 +836,8 @@ In @tbl-regionvhappinessscore
 
 ## Visualization 2 - Scatter plot of Happiness Score v Birth Rate
 
+This visualization explores the relationship between national birth rates (per 1,000 people) and happiness scores of over 150+ countries from 2015-2019 to test the hypothesis that higher birth rates may strain resources and lower happiness.
+
 ```{r}
 ## Visualization 2 - Scatter plot of Happiness Score v Birth Rate
 
@@ -896,11 +898,24 @@ ggplot(
 ) + theme_bw()
 
 
-
 ```
+**Key Insights:**
+
+-   **Strong Negative Correlation** (r = -0.72):
+
+    -   Countries with birth rates (\>25) cluster in low happiness scores (3-5), while those with birth rates (\<15) score above 6.
+
+-   **Socioeconomic Factors:**
+
+    -   We can see that nations with a low birth rate are the ones that are happier, and from our previous visualizations, we can incur that regions with universal secondary education and with highly urbanized societies (ex. Australia/NZ, Western Europe, etc.) are the happiest and these are the regions that also have a low birth rate.
+
+    -   In the same way, we can also come to the conclusion that the regions with a high birth rate have a lower happiness score and that these regions can also have issues such as political instability and a lower GDP.
+
 In @fig-finalbirthrateplot
 
 ## Visualization 3 - Line Plot of Happiness Score over time between the Top 5 and Bottom 5 Countries
+
+The line chart tracks happiness scores over five years for the top and bottom 5 countries in the world happiness index rankings. This visualization can help show us whether countries are resistant to change in happiness scores or not.
 ```{r}
 
 ## Visualization 3 - Line Plot of Happiness Score over time between the Top 5 and Bottom 5 Countries
@@ -1020,7 +1035,35 @@ ggplot(countries_data, aes(x = Year, y = score, color = Country)) +
   theme_minimal()         
 
 ```
+**Key Insights:**
+
+-   **Distinct Trend Lines:**
+
+    -   We can see that the top 5 countries are all nearly horizontal and are tightly clustered between scores 7.2-7.6, confirming stability. The bottom 5 lines are also almost clustered together in the 3.0-3.9 range, with some outliers like the country of Benin that shows a strong upward trend.
+
+-   **Economic Shifts:**
+
+    -   We can notice that all the top five countries seem to have a small downward trend starting from 2017, which can suggest a global issue, which has affected these major countries, hence the reason why there is no outlier, because all the countries are following a similar trend.
+
+    -   We can also see that there are some outliers in the bottom five, like the country of Benin and Togo, which shows us that there are efforts being made in their respective governments for the betterment of society.
+
+-   But even if the countries in the bottom five do seem to have an upward trend, we can see that the difference in scores between the top and bottom five are still drastic at the end of the five-year time period, suggesting that there is still some form of consistency between the scores.
+
 In @fig-finalhappinessovertimeplot
+
+## Conclusion
+
+This project’s analysis of global happiness data reveals two critical insights:
+
+1.  **Happiness is Persistent Over Time:**
+
+    -   The happiest countries maintained their high scores with minimal fluctuations, while the least happy remained stagnant. **Only a few exceptions, like Benin, showed meaningful improvement**, suggesting that well-being is deeply tied to long-term structural factors like governance, economic stability, and social trust.
+
+2.  **Birth Rates and Happiness Are Strongly Linked**
+
+    -   Higher birth rates correlate with lower happiness, reflecting challenges like limited resources and gender inequality. However, **wealth and policy can override this trend**, as seen in Gulf States with moderate happiness despite higher birth rates.
+
+In the end, we can come to the conclusion that happiness is not static, but meaningful change requires systemic investment and not just short-term fixes. The visualizations confirm that while outliers exist, **most nations remain locked in their happiness tier over time**.
 
 ## References
 
