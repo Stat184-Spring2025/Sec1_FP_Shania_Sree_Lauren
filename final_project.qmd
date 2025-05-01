@@ -96,6 +96,9 @@ The datasets used in this report adhere to the FAIR principles, highlighting the
 - Through our data wrangling process, we changed the column name referring to family/social to social support. We also accounted for any data not measured as null. By doing so, we cleaned up the structure making it easier for future use
 
 Considering that neither dataset includes any sensitive or personal data, we still highlighted ethical practices throughout our project. Both datasets are publicly available and our analysis and primary questions asked do not hurt any individuals.  
+### Exploratory Data Analysis (EDA)
+
+To uncover patterns in global well-being and address our research question, we conducted a comprehensive Exploratory Data Analysis (WDA) on both the World Happiness Index and World Bank datasets. This involved generating summary statistics and examining distributions of key variables across regions and development indicators. 
 
 ```{r}
 # Import all necessary libraries for the entire qmd file 
@@ -107,13 +110,15 @@ library(ggplot2)
 library(janitor)
 ```
 
-## World Happiness Index Data Wrangling and EDA
+### World Happiness Index Data Wrangling and EDA
+
+Table 1 provides the summary statistics for the Happiness Index dataset, highlighting central tendencies and variability across nine key metrics. 
 ```{r}
 ## World Happiness Index Data Wrangling and EDA
 
 
 # Goal: Tidy the world happiness data so each year is integrated into one
-# data set. The resulting case is the happiness score for a country in a
+# dataset. The resulting case is the happiness score for a country in a
 # specific year. Then complete EDA analysis by creating summary tables of
 # each feature and grouped by region. 
 
@@ -411,69 +416,22 @@ total_data_summary |>
     font_size = 8
   )
 ```
+Key Insights:
+
+Happiness scores range widely (2.69-7.77), with a mean of 5.38 (~1.13 SD).
+
+GDP and life expectancy show right-skewed distributions (mean < median). 
+
+Government trust scores are notably low (mean 0.13, max 0.55). 
+
 In @tbl-summaryvariablesworldhappiness
 
-```{r}
-# 12a. Create a summary table grouped by region for each feature in the data
-# set
-# 12b. Summarize across the numeric columns in the total data set
-# 12c. Get the measures of count, min, median, mean, max, and standard
-# deviation for each column, allowing for NA values.
-# 12d. Pivot longer so the case is a specific measure for each column
-# 12e. Separate wider so the column name and measure each have their own
-# column
-# 12f. Pivot wider so each measure becomes a new column
-# 12g. Remove any NA's in the data set as those are countries whose region we
-# don't know and therefore can remove in this region based table.
-total_data_summary_region <- total_data |>
-  group_by(Region) |>
-  summarise(across(
-    Happiness.Rank:Dystopia.Residual,
-    list(
-      count = length,
-      min = ~min(., na.rm = TRUE),
-      median = ~median(., na.rm = TRUE),
-      mean = ~mean(., na.rm = TRUE),
-      max = ~max(., na.rm = TRUE),
-      sd = ~sd(., na.rm = TRUE)
-      )
-    )
-  ) |> pivot_longer(
-    cols = Happiness.Rank_count:Dystopia.Residual_sd,
-    names_to = "Column_Measure",
-    values_to = "Value"
-  ) |> separate_wider_delim(
-    cols = Column_Measure,
-    delim = "_",
-    names = c("Column", "Measure")
-  ) |> pivot_wider(
-    names_from = Measure,
-    values_from = Value
-  ) |> drop_na()
-```
-
-```{r}
-#| label: tbl-regionsummaryworldhappiness
-#| tbl-cap: "Summary Statistics for each variable, grouped based on Region, from the world happiness index data set"
-#| tbl-pos: H
-#| lst-label: lst-table1
-#| lst-cap: "Code Chunk for Making Summary Table Based on Region Enlisted"
-# 13a. Create a summary table with a caption and kable styling.
-total_data_summary_region |>
-  kable(
-    caption = "Summary Statistics of each Region in the World Happiness Index data set",
-    booktabs = TRUE,
-    align = c("l", rep("c", 6))
-  ) |> kableExtra::kable_styling(
-    bootstrap_options = c("striped", "condensed"),
-    font_size = 5
-  )
 
 
-```
-In @tbl-regionsummaryworldhappiness
+### World Bank Data Wrangling and EDA
 
-## World Bank Data Wrangling and EDA
+Table 2 summarizes 720 observations of critical development metrics like a country's birth rate, access to electricity and internet:
+
 ```{r}
 ## World Bank Data Wrangling and EDA
 
@@ -624,6 +582,12 @@ world_bank_summary |>
     font_size = 8
   )
 ```
+Key Insights:
+
+Electricity access is bimodal as the median is 99.6% of the countries having access to electricity but the mean is 82.5% due to low access outliers. 
+
+Birth rates vary significantly (a min of 6.4 and a max of 46.6), which suggests demographic transition stages (fluctuation between high ans low birth rates) within countries. 
+
 In @tbl-summaryworldbank
 
 ```{r}
