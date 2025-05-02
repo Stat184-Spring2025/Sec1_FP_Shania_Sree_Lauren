@@ -5,16 +5,16 @@ This repository explores the World Happiness Report over 2015-2019 across the co
 ## Overview
 
 This project focuses on two research questions:
+ 1. Does time have an effect on the happiness rate? (i.e. do the “happiest” countries tend to stayhappy even after a certain number of years and do the “saddest” countries tend to stay sad even after a certain number of years?). And does the region of the country play a role in this?
  
- 1: Does time have an effect on happiness rate?
+ 2. How does the birth rate in the data set correlate with its reported happiness levels? Are thereany underlying socioeconomic factors that might explain the relationship?
 
- 2: How does the birth rate in the data set correlate with it's reported happiness levels?
-
-Our analysis of these questions highlights the correlation with birth rate and happiness, as well as identify if the happiest countries and the unhappiest countries stay consistent over a period of time. 
+Our analysis of these questions highlights the correlation with birth rate and happiness, as well as identifies if the happiest countries and the unhappiest countries stay consistent over a period of time and if the region plays a role in this consistency.  
 
 ### Interesting Insight
 
-Given that our project centers around the Happiness Scores of over 100 countries, our most interesting insight comes from our visualization showing if happiness changed over the course of five years for the top and bottom 5 countries.
+Given that our project centers around the Happiness Scores of over a hundred countries, our most interesting insight comes from our visualization showing if happiness changed over the course of five years for the top and bottom five countries.
+
 <img width="792" alt="Screenshot 2025-05-02 at 3 47 14 PM" src="https://github.com/user-attachments/assets/1e15edd7-eb1c-4309-9867-df99a6f81cbd" />
 
 This gives us key information about whether a countries' happiness score stays consistent or not throughout the years. For any increases or decreases, we can look deeper into the countries and look for any outside factors that contributed to this change.
@@ -30,10 +30,7 @@ This gives us key information about whether a countries' happiness score stays c
        that can impact the happiness scores of regions
 
 ### Project
-- Final_proj_text.qmd
-  1. This qmd file goes into detail about each aspect of our project. It gives information about the     
-     data, insights into the data cleaning and wrangling, FAIR/CARE principles, and the exploratory data 
-     analysis.
+
 - final_project.qmd
   1. This qmd file displays our code, visualizations, and narrative text associated with each visual.  
 
