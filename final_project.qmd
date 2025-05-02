@@ -164,6 +164,10 @@ We are reading in files remotely, from github, as opposed to locally. We chose t
 # specific year. Then complete EDA analysis by creating summary tables of
 # each feature and grouped by region.
 
+# Polishing: We removed a summary table of each feature by region, as this
+# was an overwhelming amount of information and did not lead to useful
+# insights into our data.
+
 # Need: all of the separate world happiness data csv (2015, 2016, 2017, 2018,
 # and 2019)
 
@@ -1075,6 +1079,10 @@ In @tbl-regionvhappinessscore, we examinesthe distribution of happiness scores a
 # region. The scores should be binned, as they are currently in decimal
 # form, therefore generalizing them will allow for greater comparison power.
 
+# Polishing: We initially had the happiness score binned into whole numbers
+# as opposed to binning by decimals. This did not allow for enough
+# differentiation between scores and generalized the data too much.
+
 # Need: tidied world happiness index data
 
 # Plan
@@ -1235,6 +1243,11 @@ In @fig-finalbirthrateplot, we explore the relationship between national birth r
 
 
 # Goal: Create a scatter plot of the birth rate versus the country's happiness score.
+
+# Polishing: We added in a trend line between happiness score and birth rate
+# to more clearly indicate the negative correlation. We added in a color
+# gradient to dual encoding the fact that as birth rate increased, happiness
+# score decreased.
 
 # Need: merged data set of world happiness index data and world bank data
 
