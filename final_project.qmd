@@ -31,6 +31,8 @@ Sree is responsible for all narrative text. Shania is responsible for the README
 
 The World Happiness Report is a landmark global survey that measures and ranks the happiness levels of nations, providing valuable insights into the well-being of populations worldwide. By analyzing factors such as GDP per capita, birth rate, freedom, people with access to resources like the internet, and perceptions of corruption, the report offers a comprehensive understanding of what contributes to a fulfilling life. Happiness, as a metric, goes beyond economic indicators to encompass emotional and social dimensions, making it a crucial tool for policymakers and researchers. However, happiness is a multifaceted concept that cannot be fully captured by a single measure, requiring a deeper examinations of cultural, environmental, and individual factors to truly understand what makes societies thrive and happy.
 
+The purpose of this project is to explore the World Happiness Index and see what qualities of a country has an impact on its happiness rate. 
+
 In this project, we aim to explore two core research questions:
 
 1.  Does time have an effect on the happiness rate? (i.e. do the "happiest" countries tend to stay happy even after a certain number of years and do the "saddest" countries tend to stay sad even after a certain number of years?). And does the region of the country play a role in this?
