@@ -15,8 +15,7 @@ Our analysis of these questions highlights the correlation with birth rate and h
 ### Interesting Insight
 
 Given that our project centers around the Happiness Scores of over 100 countries, our most interesting insight comes from our visualization showing if happiness changed over the course of five years for the top and bottom 5 countries.
-
-<img width="497" alt="Screenshot 2025-05-01 at 3 56 08 PM" src="https://github.com/user-attachments/assets/b32c95ca-8058-41a9-9312-98de5f50e915" />
+<img width="792" alt="Screenshot 2025-05-02 at 3 47 14 PM" src="https://github.com/user-attachments/assets/1e15edd7-eb1c-4309-9867-df99a6f81cbd" />
 
 This gives us key information about whether a countries' happiness score stays consistent or not throughout the years. For any increases or decreases, we can look deeper into the countries and look for any outside factors that contributed to this change.
 
