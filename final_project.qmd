@@ -1331,9 +1331,9 @@ In the end, we can come to the conclusion that happiness is not static, but mean
 
 
 ## References
-[1]: "World Happiness Report." www.kaggle.com, www.kaggle.com/datasets/unsdsn/world-happiness.
+"World Happiness Report." www.kaggle.com, www.kaggle.com/datasets/unsdsn/world-happiness.
 
-[2]: González, Ariel. "World Bank World Development Indicators." Kaggle.com, 2022, www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators.
+González, Ariel. "World Bank World Development Indicators." Kaggle.com, 2022, www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators.
 
 ## Code Appendix
 
