@@ -27,7 +27,7 @@ code-appendix: true
 ---
 ## Introduction
 
-Sree is responsible for all narrative text. Shania is responsible for the README, FAIR/CARE Principles, and Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries. Lauren is responsible for all other code except for Visualization One.
+Sree is responsible for all narrative text. Shania is responsible for the README and Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries. Lauren is responsible for all other code except for Visualization One.
 
 The World Happiness Report is a landmark global survey that measures and ranks the happiness levels of nations, providing valuable insights into the well-being of populations worldwide. By analyzing factors such as GDP per capita, birth rate, freedom, people with access to resources like the internet, and perceptions of corruption, the report offers a comprehensive understanding of what contributes to a fulfilling life. Happiness, as a metric, goes beyond economic indicators to encompass emotional and social dimensions, making it a crucial tool for policymakers and researchers. However, happiness is a multifaceted concept that cannot be fully captured by a single measure, requiring a deeper examinations of cultural, environmental, and individual factors to truly understand what makes societies thrive and happy.
 
@@ -46,6 +46,8 @@ For the purpose of this project, we used two datasets to explore the happiness r
 
 -   Source: Kaggle
 
+-   Collected By: A collaboration between Gallup, The University of Oxford's Wellbeing Research Centre, and the UN Sustainable Development Solutions Network
+
 -   Description: This dataset contains happiness rankings and scores for over 150 countries from the years of 2015 to 2019 with metrics such as GDP per capita, social support, birth rate, freedom and corruption. It includes approximately over 150 rows which represent the countries and over 10 columns that represent the factors related to these countries.
 
 -   Purpose: This dataset is used to analyze the global well-being trends, to quantify drivers of happiness, and to provide evidence-based insights.
@@ -56,9 +58,11 @@ For the purpose of this project, we used two datasets to explore the happiness r
 
 -   Source: Kaggle
 
+-   Collected By: World Bank Group
+
 -   Description: This dataset contains information about factors such as economic, social, political, and environmental indicators for approximately over 260 countries from the years of 1960 to 2022. It has approximately 268 rows which represents the countries and 48 columns with numerical values for factors including GDP, birth rates, energy consumption, etc.
 
--   Purpose: This secondary dataset is used to provide additional supprt to our initial goal of analyzing the global factors that can have an impact on a regions happiness score.
+-   Purpose: The World Bank Group collected this data to help policymakers and the public understand the state of devlopment in order to set benchmarks, identify effective actions, and monitor progress towards targets of reducing poverty. We are using this secondary dataset is used to provide additional supprt to our initial goal of analyzing the global factors that can have an impact on a regions happiness score.
 
 -   Cases: Each row represents a country, with the columns giving economic, social, environmental, and governance details about the region.
 
@@ -74,7 +78,13 @@ To help us answer our research questions, we integrated the data from the primar
 
 **Variable Selection:**
 
--   We retained variables that will be necessary for answering our research questions such as the GDP of the country, birth rate, happiness score, etc.
+-   We retained most of the variables from the world happiness report. The Country feature is the name of the country. The Region feature is the region the country belongs to. The Happiness Rank is the rank of the country based on the Happiness Score. The Happiness Score is an averaged score from all sampled people, in a Gallup poll, when asked "How would you rate your happiness on a scale of zero to ten, where ten is the happiest." This is meant to make individuals imagine a ladder where the best possible life is the top rung of the ladder, ten, and the worst possible life is the bottom rung of the ladder, zero. This is called a "Cantril ladder," which is a subjective measure of happiness as an individual self-anchors their ladder based on their persepctive. If two people have had radically different life experiences, then their "ladders" of happiness will have radically different rungs. Economy (GDP per Captia) is the extent to which GDP contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in GDP, how much does that affect the Happiness Score. Family or Social Support is the extent to which the support of family and friends contributes to the calculation of the Happiness Score. (In the data from earlier years, this was called Family, but in later years was renamed to Social Support, however they measure the same thing over the years). This means, for each country, when there is a change in a person's support system, how much does that affect the Happiness Score. Health (Life Expectancy) is the extent to which the life expectancy of inviduals in the country contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the average life expectancy, how much does that affect the Happiness Score. Freedom is the extent to which the perception of freedoms contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the perception of freedoms, how much does that affect the Happiness Score. Trust (Government Corruption) is the extent to which the perception of corruption contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the perception of corruption in the government, how much does that affect the Happiness Score. Generosity is the extent to which the perception of generosity contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the perception of generosity, how much does that affect the Happiness Score. Dystopia Residual is the extent to which the perception of the dystopia residual contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the dystopia residual, how much does that affect the Happiness Score. Dystopia represents an imaginary country with the world's least happy people. This establishes a benchmark, as no country will perform worse than dystopia, to compare all other countries aganist.
+
+-   In the world bank world development indicators data set, we retained country, year, access to electricity, individuals using the internet, and birth rate. Country refers to name of the country. We derived year from the date feature, which had the year, month, and day. The year refers to the year the data was collected. Access to electricity refers to the percentage of the population that has access to electricity from zero percent to one hundred precent. Individuals using the internet refers to the percentage of the population using the internet from zero percent to one hundred percent. The birth rate refers to the birth rate per one thousand people. 
+
+- Our analysis will focus on happiness score and region from the world happiness report. In the world bank data set, we will focus on access to electricity, individuals using the internet, and birth rate. We will be using country and year from both data sets. 
+
+-   We retained variables that will be necessary for answering our research questions such as birth rate, happiness score, etc.
 
 -   Unnecessary columns such as rule of law, agricultural land percent, forest land percent, etc. have been dropped to make the datasets more clear and concise.
 
@@ -113,7 +123,7 @@ The datasets used in this report adhere to the FAIR & CARE principles, highlight
 
 ### Exploratory Data Analysis (EDA)
 
-To uncover patterns in global well-being and address our research question, we conducted a comprehensive Exploratory Data Analysis (WDA) on both the World Happiness Index and World Bank datasets. This involved generating summary statistics and examining distributions of key variables across regions and development indicators. 
+To uncover patterns in global well-being and address our research question, we conducted a comprehensive Exploratory Data Analysis (EDA) on both the World Happiness Index and World Bank datasets. This involved generating summary statistics and examining distributions of key variables across regions and development indicators. 
 
 ```{r}
 # Code Style Guide - The Tidyverse Style Guide
@@ -142,7 +152,7 @@ In our coding, we use Tidyverse more than we use base R. We feel more confident 
 
 We are reading in files remotely, from github, as opposed to locally. We chose to read in data from github to fully utilize and be immersed in using github. Moreover, this method does not require another person who wants to run our QMD file to download our data sets to their local device, taking up valuable storage space.
 
-Table 1 provides the summary statistics for the Happiness Index dataset, highlighting central tendencies and variability across nine key metrics. 
+@tbl-summaryvariablesworldhappiness provides the summary statistics for the Happiness Index dataset, highlighting central tendencies and variability across nine key metrics. 
 ```{r}
 ## World Happiness Index Data Wrangling and EDA
 
@@ -424,7 +434,6 @@ tidy_world_happiness <- total_data |>
 # View(total_data) #check that tidied total data is correct
 
 ```
-The case for the tidied world happiness index data set is a countries happiness score and other features for a particular year. LIST ATTRIBUTES HERE
 
 ```{r}
 # 13a. Create a summary table based on each feature in the data set
@@ -510,7 +519,7 @@ In the World Bank Data [^2]
 
 [^2]: González, Ariel. "World Bank World Development Indicators." Kaggle.com, 2022, www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators.
 
-Table 2 summarizes 720 observations of critical development metrics like a country's birth rate, access to electricity and internet:
+@tbl-summaryworldbank summarizes 720 observations of critical development metrics like a country's birth rate, access to electricity and internet:
 
 ```{r}
 ## World Bank Data Wrangling and EDA
@@ -693,9 +702,11 @@ world_bank_summary |>
 ```
 **Key Insights:**
 
-Electricity access is bimodal as the median is 99.6% of the countries having access to electricity but the mean is 82.5% due to low access outliers. 
+As shown in @fig-electricityplot, electricity access is bimodal as the median is 99.6% of the countries having access to electricity but the mean is 82.5% due to low access outliers. 
 
-Birth rates vary significantly (a min of 6.4 and a max of 46.6), which suggests demographic transition stages (fluctuation between high ans low birth rates) within countries. 
+As shown in @fig-birthrateplot, Birth rates vary significantly (a min of 6.4 and a max of 46.6), which suggests demographic transition stages (fluctuation between high ans low birth rates) within countries.
+
+NEED analysis for internt plot
 
 In @tbl-summaryworldbank
 
@@ -820,7 +831,7 @@ In @fig-electricityplot
 
 In the second half of the report, we are using CDA as opposed to EDA in the first half of the report, as we are trying to confirm or deny our hypotheses or research questions. For example, the line plot is meant to answer the specific question of time affecting a country's happiness score.
 
-The line chart tracks happiness scores over five years for the top and bottom 5 countries in the world happiness index rankings. This visualization can help show us whether countries are resistant to change in happiness scores or not.
+The line chart, @fig-finalhappinessovertimeplot, tracks happiness scores over five years for the top and bottom 5 countries in the world happiness index rankings. This visualization can help show us whether countries are resistant to change in happiness scores or not.
 
 ```{r}
 ## Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries
@@ -1043,7 +1054,7 @@ In @fig-finalhappinessovertimeplot
 
 ## Visualization Two - Frequency Table of Happiness Scores and Region
 
-This table examines the distribution of happiness scores across 10 global regions over a five-year period, categorizing countries into score ranges of 2.5 to 8 to identify patterns. With this data, we can explore the question of whether happiness rankings stay consistent over time.
+In @tbl-regionvhappinessscore, we examinesthe distribution of happiness scores across 10 global regions over a five-year period, categorizing countries into score ranges of 2.5 to 8 to identify patterns. With this data, we can explore the question of whether happiness rankings stay consistent over time.
 
 ```{r}
 ## Visualization Two - Frequency Table of Happiness Scores and Region
@@ -1188,9 +1199,7 @@ world_happy_freq |>
     font_size = 3 # add in kable styling
   )
 ```
-In @tbl-regionvhappinessscore
-
-Here we created a frequency table, as opposed to a summary table, as we are grouping by the categorical attributes of region and the binned happiness score. We are trying to compare the absolute and relative case frequencies across region and score.
+In @tbl-regionvhappinessscore, we created a frequency table, as opposed to a summary table, as we are grouping by the categorical attributes of region and the binned happiness score. We are trying to compare the absolute and relative case frequencies across region and score.
 
 **Key Insights:**
 
@@ -1208,7 +1217,7 @@ This answers our first research question, proving that happiness is consistent a
 
 ## Visualization Three - Scatter plot of Happiness Score v Birth Rate
 
-This visualization explores the relationship between national birth rates (per 1,000 people) and happiness scores of over 150+ countries from 2015-2019 to test the hypothesis that higher birth rates may strain resources and lower happiness.
+In @fig-finalbirthrateplot, we explore the relationship between national birth rates (per 1,000 people) and happiness scores of over 150+ countries from 2015-2019 to test the hypothesis that higher birth rates may strain resources and lower happiness.
 
 ```{r}
 ## Visualization Three - Scatter plot of Happiness Score v Birth Rate
