@@ -27,7 +27,7 @@ code-appendix: true
 ---
 ## Introduction
 
-Sree is responsible for all narrative text. Shania is responsible for the README and Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries. Lauren is responsible for all other code except for Visualization One.
+Sree is responsible for all narrative text. Shania is responsible for the README, FAIR/CARE Principles, and Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries. Lauren is responsible for all other code except for Visualization One.
 
 The World Happiness Report is a landmark global survey that measures and ranks the happiness levels of nations, providing valuable insights into the well-being of populations worldwide. By analyzing factors such as GDP per capita, birth rate, freedom, people with access to resources like the internet, and perceptions of corruption, the report offers a comprehensive understanding of what contributes to a fulfilling life. Happiness, as a metric, goes beyond economic indicators to encompass emotional and social dimensions, making it a crucial tool for policymakers and researchers. However, happiness is a multifaceted concept that cannot be fully captured by a single measure, requiring a deeper examinations of cultural, environmental, and individual factors to truly understand what makes societies thrive and happy.
 
