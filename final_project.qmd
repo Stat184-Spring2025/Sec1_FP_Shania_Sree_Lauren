@@ -33,7 +33,7 @@ The World Happiness Report is a landmark global survey that measures and ranks t
 
 In this project, we aim to explore two core research questions:
 
-1.  Does time have an effect on the happiness rate? (i.e. do the "happiest" countries tend to stay happy even after a certain number of years and do the "saddest" countries tend to stay sad even after a certain number of years?).
+1.  Does time have an effect on the happiness rate? (i.e. do the "happiest" countries tend to stay happy even after a certain number of years and do the "saddest" countries tend to stay sad even after a certain number of years?). And does the region of the country play a role in this?
 2.  How does the birth rate in the data set correlate with its reported happiness levels? Are there any underlying socioeconomic factors that might explain the relationship?
 
 These questions explore gaps in how happiness persists over time and connects to demographic shifts like birth rates. The findings could inform policy decisions, highlighting the role of stability and population dynamics in well-being. The project aims to provide actionable insights that deepen the understanding of global happiness patterns.
