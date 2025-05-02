@@ -1216,9 +1216,9 @@ In @tbl-regionvhappinessscore, we created a frequency table, as opposed to a sum
 
 **Regional Happiness Clusters Persist Over Time (from 2015-2019):**
 
-Regions such as Australia/NZ (100% in the 6.5-7.5 range) and Western Europe (~67.96% in the 6.5-8 range) consistently rank the highest, suggesting long-established advantages like strong GDP, social support, etc [^1]. 
+Regions such as Australia/NZ (100% in the 6.5-7.5 range) and Western Europe (~67.96% in the 6.5-8 range) @tbl-summaryworldbank consistently rank the highest, suggesting long-established advantages like strong GDP, social support, etc [^1]. 
 
-There is also a low score stability with a region like Sub-Saharan Africa which dominates the bottom tiers (21.1% in the 2.5-3.5 range), indicating persistent challenges such as limited infrastructure investments, and political instability [^1]. 
+There is also a low score stability with a region like Sub-Saharan Africa which dominates the bottom tiers (21.1% in the 2.5-3.5 range)@tbl-summaryworldbank, indicating persistent challenges such as limited infrastructure investments, and political instability [^1]. 
 
 **There is Limited Mobility Between Tiers:**
 
