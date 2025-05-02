@@ -623,8 +623,6 @@ world_bank_tidy <- world_bank_data |>
 # View(world_bank_tidy) #check to see if tidied world bank data is correct
 ```
 
-In the new tidied data set for the world bank data set is a set of features (birth rate, electricity, internet) for a country in a particular year. LIST ATTRIBUTES HERE
-
 ```{r}
 # 3a. Create a summary table for access to electricity, individuals using
 # internet and birth rate in the data set.
@@ -694,7 +692,7 @@ As shown in @fig-electricityplot, electricity access is bimodal as the median is
 
 As shown in @fig-birthrateplot, Birth rates vary significantly (a min of 6.4 and a max of 46.6), which suggests demographic transition stages (fluctuation between high ans low birth rates) within countries.
 
-NEED analysis for internt plot
+As shown in n @fig-internetplot, the relationship appears positively correlated. Countries with low internet usage have lower happiness scores (as low as ~3), whereas countries with high internet usage (above 80%) cluster around higher happiness scores (6–8), suggesting internet usage may be associated with happiness.
 
 In @tbl-summaryworldbank
 
@@ -1035,13 +1033,13 @@ In @fig-finalhappinessovertimeplot
 
 -   **Distinct Trend Lines:**
 
-    -   We can see that the top 5 countries are all nearly horizontal and are tightly clustered between scores 7.2-7.6, confirming stability. The bottom 5 lines are also almost clustered together in the 3.0-3.9 range, with some outliers like the country of Benin that shows a strong upward trend.
+    -   We can see that the top 5 countries are all nearly horizontal and are tightly clustered between scores 7.2-7.6, confirming stability. The bottom 5 lines are also almost clustered together in the 3.0-3.9 range, with some outliers like the country of Rwanda that shows a strong upward trend.
 
 -   **Economic Shifts:**
 
-    -   We can notice that all the top five countries seem to have a small downward trend starting from 2017, which can suggest a global issue, which has affected these major countries, hence the reason why there is no outlier, because all the countries are following a similar trend.
+    -   We can notice that all the top five countries seem to have a small downward trend starting from 2017, which can suggest a global issue, which has affected these major countries, hence the reason why there is no outlier, because all the countries are following a similar trend [^2].
 
-    -   We can also see that there are some outliers in the bottom five, like the country of Benin and Togo, which shows us that there are efforts being made in their respective governments for the betterment of society.
+    -   We can also see that there are some outliers in the bottom five, like the country of Rwanda, which shows us that there are efforts being made in their respective governments for the betterment of society [^2].
 
 -   But even if the countries in the bottom five do seem to have an upward trend, we can see that the difference in scores between the top and bottom five are still drastic at the end of the five-year time period, suggesting that there is still some form of consistency between the scores.
 
@@ -1202,13 +1200,13 @@ In @tbl-regionvhappinessscore, we created a frequency table, as opposed to a sum
 
 **Regional Happiness Clusters Persist Over Time (from 2015-2019):**
 
-Regions such as Australia/NZ (100% in the 6.5-7.5 range) and Western Europe (~67.96% in the 6.5-8 range) consistently rank the highest, suggesting long-established advantages like strong GDP, social support, etc. 
+Regions such as Australia/NZ (100% in the 6.5-7.5 range) and Western Europe (~67.96% in the 6.5-8 range) consistently rank the highest, suggesting long-established advantages like strong GDP, social support, etc [^1]. 
 
-There is also a low score stability with a region like Sub-Saharan Africa which dominates the bottom tiers (21.1% in the 2.5-3.5 range), indicating persistent challenges such as limited infrastructure investments, and political instability. 
+There is also a low score stability with a region like Sub-Saharan Africa which dominates the bottom tiers (21.1% in the 2.5-3.5 range), indicating persistent challenges such as limited infrastructure investments, and political instability [^1]. 
 
 **There is Limited Mobility Between Tiers:**
 
-While there are some regions such as the Middle East/North Africa and Latin America, that show a moderate spread across the mid-range scores, indicating some form of change, there are no countries that transitioned from the bottom quartile (<4) to the top quartile (>6) or vice versa. 
+While there are some regions such as the Middle East/North Africa and Latin America, that show a moderate spread across the mid-range scores, indicating some form of change, there are no countries that transitioned from the bottom quartile (<4) to the top quartile (>6) or vice versa [^1]. 
 
 This answers our first research question, proving that happiness is consistent and that there is little change when it comes to happiness scores over time. The countries that had an initially high-score continue to consistently stay high and similarly the countries that initially had low score consistently have stayed in the lower quartile, showing that there long-term factors such as GDP and governance that plays a role in short-term fluctuations. 
 
@@ -1307,7 +1305,7 @@ This project’s analysis of global happiness data reveals two critical insights
 
 1.  **Happiness is Persistent Over Time:**
 
-    -   The happiest countries maintained their high scores with minimal fluctuations, while the least happy remained stagnant. **Only a few exceptions, like Benin, showed meaningful improvement**, suggesting that well-being is deeply tied to long-term structural factors like governance, economic stability, and social trust.
+    -   The happiest countries maintained their high scores with minimal fluctuations, while the least happy remained stagnant. **Only a few exceptions, like Rwanda, showed meaningful improvement**, suggesting that well-being is deeply tied to long-term structural factors like governance, economic stability, and social trust.
 
 2.  **Birth Rates and Happiness Are Strongly Linked**
 
