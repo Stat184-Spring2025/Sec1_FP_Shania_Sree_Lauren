@@ -245,7 +245,6 @@ data_2018 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1
 data_2019 <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/2019.csv")
 # View(data_2019) read in and view world happiness data from 2019 to ensure
 # imported correctly
-
 ```
 
 ```{r}
@@ -263,7 +262,6 @@ data_2015 <- data_2015 |>
     Year = 2015 # add year column so when merge can differentiate between
     # years
   )
-
 ```
 
 ```{r}
@@ -282,7 +280,6 @@ data_2016 <- data_2016 |>
     Year = 2016 # add year column so when merge can differentiate between
     # years
   )
-
 ```
 
 ```{r}
@@ -301,7 +298,6 @@ data_2017 <- data_2017 |>
     Year = 2017 # add year column so when merge can differentiate between
     # years
   )
-
 ```
 
 ```{r}
@@ -333,7 +329,6 @@ data_2018 <- data_2018 |>
     Year = 2018 # add year column so when merge can differentiate between
     # years
   )
-
 ```
 
 ```{r}
@@ -361,7 +356,6 @@ data_2019 <- data_2019 |>
     Year = 2019 # add year column so when merge can differentiate between
     # years
   )
-
 ```
 
 ```{r}
@@ -369,7 +363,6 @@ data_2019 <- data_2019 |>
 # total years data frame
 total_data <- bind_rows(data_2015, data_2016, data_2017, data_2018, data_2019) # use bind rows to make a longer singular data frame of data made
 # up of data from all of the years
-
 ```
 
 ```{r}
@@ -380,7 +373,6 @@ total_data_merge <- total_data |> left_join( # left join as want to keep all
   y = data_2015,
   by = join_by(Country == Country) # join by country as common column
 )
-
 ```
 
 ```{r}
@@ -395,7 +387,6 @@ total_data_merge$Region[!is.na(total_data_merge$Region.y)] <-
   total_data_merge$Region.y[!is.na(total_data_merge$Region.y)] # for rows,
 # where have the same country as in 2015 data but at a later year, so the
 # region is the same, add the region got from 2015 data to new region column
-
 ```
 
 ```{r}
@@ -405,7 +396,6 @@ total_data_merge <- total_data_merge |> left_join( # left join as want to keep a
   y = data_2016,
   by = join_by(Country == Country) # join by country as common column
 )
-
 ```
 
 ```{r}
@@ -424,7 +414,6 @@ total_data_merge$Region[!is.na(total_data_merge$Region.y)] <-
 # region is the same, add the region got from 2016 data to new region column
 total_data$Region <- total_data_merge$Region # add region column from merged
 # data to final tidy data frame
-
 ```
 
 ```{r}
@@ -438,7 +427,6 @@ tidy_world_happiness <- total_data |>
     # family/friend support measure is the same
   )
 # View(total_data) #check that tidied total data is correct
-
 ```
 
 ```{r}
@@ -483,7 +471,6 @@ world_happiness_summary <- tidy_world_happiness |>
     names_from = Measure,
     values_from = Value # each measure is now it's own column
   )
-
 ```
 
 ```{r}
@@ -503,7 +490,6 @@ world_happiness_summary |>
     bootstrap_options = c("striped", "condensed"), # adding in kable styling
     font_size = 8
   )
-
 ```
 **Key Insights:**
 
@@ -589,7 +575,6 @@ In the World Bank Data [^2]
 world_bank_data <- read.csv("https://raw.githubusercontent.com/Stat184-Spring2025/Sec1_FP_Shania_Sree_Lauren/refs/heads/main/world_bank_development_indicators.csv") # read in data from github and view data to ensure imported
 # correctly
 # View(world_bank_data)
-
 ```
 
 ```{r}
@@ -636,7 +621,6 @@ world_bank_tidy <- world_bank_data |>
     # which will separate the feature name from the summary statistic
   )
 # View(world_bank_tidy) #check to see if tidied world bank data is correct
-
 ```
 
 In the new tidied data set for the world bank data set is a set of features (birth rate, electricity, internet) for a country in a particular year. LIST ATTRIBUTES HERE
@@ -684,7 +668,6 @@ world_bank_summary <- world_bank_tidy |>
     names_from = Measure,
     values_from = Value # each measure is now it's own column
   )
-
 ```
 
 ```{r}
@@ -704,7 +687,6 @@ world_bank_summary |>
     bootstrap_options = c("striped", "condensed"),
     font_size = 8 # adding in kable styling
   )
-
 ```
 **Key Insights:**
 
@@ -739,7 +721,6 @@ merged_data <- total_data |>
   drop_na(c(individuals.using.internet, birth.rate, access.to.electricity)) # remove any rows without a value (null) for our
 # three variables of interest, as want to compare features from world bank
 # to happiness score from world happiness index
-
 ```
 The case for the merged data set of the tidy world happiness data and world bank data is a set of features from both the world happiness report and world bank data set for a country in a specific year. The attributes are a combination of all of the attributes from the tidy world happiness data set and the tidy world bank data set.
 
@@ -769,7 +750,6 @@ ggplot(
     title = "Happiness Score v Percentage of Individuals Using the Internet"
   ) +
   theme_bw()
-
 ```
 In @fig-internetplot
 
@@ -799,7 +779,6 @@ ggplot(
     title = "Happiness Score v Birth Rate"
   ) +
   theme_bw()
-
 ```
 In @fig-birthrateplot
 
@@ -829,7 +808,6 @@ ggplot(
     title = "Happiness Score v Access to Electricity"
   ) +
   theme_bw()
-
 ```
 In @fig-electricityplot
 
@@ -849,13 +827,13 @@ The line chart, @fig-finalhappinessovertimeplot, tracks happiness scores over fi
 # those four years.
 
 # Polishing: To achieve this final visualization, there were some changes that
-# were made to improve the clarity of the line plot. First, we cut down our 
-# number of countries from 20 (top 10, bottom 10), to 10 (top 5, bottom 5). 
+# were made to improve the clarity of the line plot. First, we cut down our
+# number of countries from 20 (top 10, bottom 10), to 10 (top 5, bottom 5).
 # This way, the resulting plot appears less cluttered. Additionally,
-# the countries in the key were placed in order from the happiest to the 
+# the countries in the key were placed in order from the happiest to the
 # most unhappy countries, instead of alphabetical order. Lastly, the colors
 # and line type were altered to make it more colorblind-friendly, and overall,
-# more aesthetically pleasing. 
+# more aesthetically pleasing.
 
 # Need: the cleaned 2015 and 2019 data from the World Bank Data set
 
