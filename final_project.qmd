@@ -102,26 +102,42 @@ The datasets used in this report adhere to the FAIR & CARE principles, highlight
 ## FAIR
 
 **F- FINDABLE:**
+
 - Both the primary and secondary datasets can be found on Kaggle, which is a platform where people can find and publish datasets in a clear location.
+
 **A- ACCESSIBLE:**
+
 - Both datasets are accessible through Kaggle, allowing anyone to download and use the data at their leisure.
+
 **I- INTEROPERABLE:**
+
 - Both datasets are in the form of .csv files, making the data compatible with many tools and platforms like R-Studio. 
+
 **R- REUSABLE:**
+
 - Both datasets include metadata and documentation that supports this.
+
 - Through our data wrangling process, we changed the column name referring to family/social to social support. We also accounted for any data not measured as null. By doing so, we cleaned up the structure making it easier for future use.
 
 ## CARE
 
 **C- COLLECTIVE BENEFIT:**
+
 - Although neither dataset involves specific communities, these are each meant to improve the global understanding of happiness and well-being.
+
 **A- AUTHORITY TO CONTROL:**
+
 - Data is collected at the country level and so, has no concerns surrounding individual control.
+
 - Even though a country a person belongs to could appear high on the Happiness Score, it does not represent a specific individuals' experience in that country.
+
 **R- RESPONSIBILITY:**
+
 - The datasets are open to use, yet there are no warnings for use or misuse.
+
 **E - ETHICS:**
-- The data in both sets were collected ethically through international surveys. However, there is no indication of whether individuals consented. 
+
+- The data in both sets were collected ethically through international surveys. However, we cannot make an assumption that individuals consented to this information being public. 
 
 ### Exploratory Data Analysis (EDA)
 
