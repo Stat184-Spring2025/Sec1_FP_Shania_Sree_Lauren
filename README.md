@@ -42,7 +42,7 @@ Moreover, this visualization invites further conversation of possible outside fa
 
 -Kaggle was the source of the primary dataset (https://www.kaggle.com/datasets/unsdsn/world-happiness/data).
 
-- Also, Kaggle was the source of the secondary dataset (https://www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators).
+-Also, Kaggle was the source of the secondary dataset (https://www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators).
 
 ## Authors
 
