@@ -16,7 +16,7 @@ Our analysis indicates that countries' happiness score tends to stay consistent 
 
 Our most interesting insight shows that happiness stays consistent over time for the top five happiest countries.  For the five least happy countries, their happiness score can increase over time.
 
-<img width="792" alt="Screenshot 2025-05-02 at 3 47 14 PM" src="https://github.com/user-attachments/assets/1e15edd7-eb1c-4309-9867-df99a6f81cbd" />
+![image](https://github.com/user-attachments/assets/26daba11-046a-4dfb-932e-eb227853c140)
 
 Moreover, this visualization invites further conversation of possible outside factors that contributed to observed changes. 
 
