@@ -25,123 +25,148 @@ execute:
   warning: false
 code-appendix: true
 ---
+
 ## Introduction
 
-Sree is responsible for all narrative text. Shania is responsible for the README and Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries. Lauren is responsible for all other code except for Visualization One.
+Sree was responsible for all narrative text. Shania was responsible for the README and visualization one, the line plot of happiness scores over time. Lauren was responsible for all other code except visualization one. 
 
-The World Happiness Report is a landmark global survey that measures and ranks the happiness levels of nations, providing valuable insights into the well-being of populations worldwide. By analyzing factors such as GDP per capita, birth rate, freedom, people with access to resources like the internet, and perceptions of corruption, the report offers a comprehensive understanding of what contributes to a fulfilling life. Happiness, as a metric, goes beyond economic indicators to encompass emotional and social dimensions, making it a crucial tool for policymakers and researchers. However, happiness is a multifaceted concept that cannot be fully captured by a single measure, requiring a deeper examinations of cultural, environmental, and individual factors to truly understand what makes societies thrive and happy.
+The World Happiness Report is a landmark global survey that measures and ranks the happiness levels of nations, providing valuable insights into the well-being of populations worldwide. By analyzing factors such as GDP per capita, birth rate, freedom, people with access to resources like the internet, and perceptions of corruption, the report offers a comprehensive understanding of what contributes to a fulfilling life. Happiness, as a metric, goes beyond economic indicators to encompass emotional and social dimensions, making it a crucial tool for policymakers and researchers. However, happiness is a multifaceted concept that cannot be fully captured by a single measure, requiring a deeper examination of cultural, environmental, and individual factors to truly understand what makes societies thrive and happy.
 
-The purpose of this project is to explore the World Happiness Index and see what qualities of a country has an impact on its happiness rate. 
+The purpose of this project is to explore what qualities of a country impact its happiness score.
 
 In this project, we aim to explore two core research questions:
 
 1.  Does time have an effect on the happiness rate? (i.e. do the "happiest" countries tend to stay happy even after a certain number of years and do the "saddest" countries tend to stay sad even after a certain number of years?). And does the region of the country play a role in this?
+
 2.  How does the birth rate in the data set correlate with its reported happiness levels? Are there any underlying socioeconomic factors that might explain the relationship?
 
-These questions explore gaps in how happiness persists over time and connects to demographic shifts like birth rates. The findings could inform policy decisions, highlighting the role of stability and population dynamics in well-being. The project aims to provide actionable insights that deepen the understanding of global happiness patterns.
+These questions explore how happiness changes over time, region, and socioeconomic factors like birth rate. The findings from this report could inform policy makers and emphasize the importance of stability and population dynamics in wellbeing. Also,  the project aims to provide actionable insights that deepen the understanding of global happiness patterns.
 
 ## Data Provenance
 
-For the purpose of this project, we used two datasets to explore the happiness rates across regions and also to explore the factors that could've had an impact on the happiness of the regions such as GDP. These datasets were found via reliable sources online and have gone through rigorous wrangling and tidying to result in a trustworthy final dataset for this project.
+In this project, we used two datasets to explore happiness across time, region, and socioeconomic factors. We found these data sets in the online repository Kaggle, published by reliable sources. Moreover, we have rigorously wrangled and cleaned the data, ensuring a trustworthy final data set.
 
 #### Primary Dataset
+
+-   Name: World Happiness Report [^1]
 
 -   Source: Kaggle
 
 -   Collected By: A collaboration between Gallup, The University of Oxford's Wellbeing Research Centre, and the UN Sustainable Development Solutions Network
 
--   Description: This dataset contains happiness rankings and scores for over 150 countries from the years of 2015 to 2019 with metrics such as GDP per capita, social support, birth rate, freedom and corruption. It includes approximately over 150 rows which represent the countries and over 10 columns that represent the factors related to these countries.
+-   Description: This data set contains happiness rankings and scores for over 150 countries from the year 2015 to 2019. Furthermore, the data measures the effect of socioeconomic factors, like GDP, on each countries' happiness score. Each part of the data set represents one year of measurements of the world happiness report. For example, if we look at the 2015 part of the data, there are approximately one hundred and fifty rows, each representing a country surveyed in 2015. The subsequent columns represent the features measured for each country in that year, like happiness score (etc.). The final wrangled and cleaned data set contains the features measured for each country across 2015 to 2019. There are some features removed in the final data set as they were not measured across all years.
 
--   Purpose: This dataset is used to analyze the global well-being trends, to quantify drivers of happiness, and to provide evidence-based insights.
+-   Purpose: We used the data set to analyze global wellbeing trends, quantify drivers of happiness, and provide evidence-based insights.
 
--   Cases: Each row represents a country, with the columns giving details about its happiness score and other contributing factors.
+-   Cases: In the original data sets, the case was the features associated with each country. The data sets were all separated by year. In the final data set, the case was the features associated with each country in a specific year. For example, a case in the final data set could have been the features measured for the United States in the year 2019. 
 
 #### Secondary Dataset
+
+-   Name: World Bank Development Indicators [^2]
 
 -   Source: Kaggle
 
 -   Collected By: World Bank Group
 
--   Description: This dataset contains information about factors such as economic, social, political, and environmental indicators for approximately over 260 countries from the years of 1960 to 2022. It has approximately 268 rows which represents the countries and 48 columns with numerical values for factors including GDP, birth rates, energy consumption, etc.
+-   Description: The data set contains information about economic, social, political, and environmental indicators. The data set spans from 1960 to 2022 for over 260 countries. The data set features the measurement date, the country name, and the related features measured. The features include GDP, birth rate, and energy consumption (etc). 
 
--   Purpose: The World Bank Group collected this data to help policymakers and the public understand the state of devlopment in order to set benchmarks, identify effective actions, and monitor progress towards targets of reducing poverty. We are using this secondary dataset is used to provide additional supprt to our initial goal of analyzing the global factors that can have an impact on a regions happiness score.
+-   Purpose: The World Bank Group collected this data to aid policy makers and the public understand development indicators. This allows policy makers to set benchmarks, identify effective actions, and monitor progress towards reducing poverty. We used the data set to analyze socioeconomic factors that could impact a countries' happiness score.
 
--   Cases: Each row represents a country, with the columns giving economic, social, environmental, and governance details about the region.
+-   Cases: In the initial and cleaned data set, the case was the features associated with each country in a specific year. A case could have been the features associated with Ireland in 2015.
 
-#### Data Wrangling
+## Data Wrangling
 
 To help us answer our research questions, we integrated the data from the primary and secondary datasets into a single dataset.
 
-**Merging:**
+#### World Happiness Report
 
--   The datasets were merged using the countries from both the primary and secondary datasets.
+[^1]
 
--   By merging the datasets, we filtered out countries absent in the primary datatset, streamlining comparisons across regions present in both datasets.
+First, we read in each part of the data set over 2015 to 2019. (We read in each data file associated with 2015 to 2019 from our GitHub repository). 
 
-**Variable Selection:**
+Then, we worked on tidying each data set individually to integrate it with the other tables later. This involved removing features that were not measured across the data sets. For example, in the 2015 data, a feature was standard error which was not measured in later data sets. Additionally, in each data set, we added the collection year, like 2015 (etc). We ensured features that measured the same information across the years had consistent naming. Also, we checked that each feature was the same data type across the years.
 
--   We retained most of the variables from the world happiness report. The Country feature is the name of the country. The Region feature is the region the country belongs to. The Happiness Rank is the rank of the country based on the Happiness Score. The Happiness Score is an averaged score from all sampled people, in a Gallup poll, when asked "How would you rate your happiness on a scale of zero to ten, where ten is the happiest." This is meant to make individuals imagine a ladder where the best possible life is the top rung of the ladder, ten, and the worst possible life is the bottom rung of the ladder, zero. This is called a "Cantril ladder," which is a subjective measure of happiness as an individual self-anchors their ladder based on their persepctive. If two people have had radically different life experiences, then their "ladders" of happiness will have radically different rungs. Economy (GDP per Captia) is the extent to which GDP contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in GDP, how much does that affect the Happiness Score. Family or Social Support is the extent to which the support of family and friends contributes to the calculation of the Happiness Score. (In the data from earlier years, this was called Family, but in later years was renamed to Social Support, however they measure the same thing over the years). This means, for each country, when there is a change in a person's support system, how much does that affect the Happiness Score. Health (Life Expectancy) is the extent to which the life expectancy of inviduals in the country contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the average life expectancy, how much does that affect the Happiness Score. Freedom is the extent to which the perception of freedoms contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the perception of freedoms, how much does that affect the Happiness Score. Trust (Government Corruption) is the extent to which the perception of corruption contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the perception of corruption in the government, how much does that affect the Happiness Score. Generosity is the extent to which the perception of generosity contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the perception of generosity, how much does that affect the Happiness Score. Dystopia Residual is the extent to which the perception of the dystopia residual contributes to the calculation of the Happiness Score. This means, for each country, when there is a change in the dystopia residual, how much does that affect the Happiness Score. Dystopia represents an imaginary country with the world's least happy people. This establishes a benchmark, as no country will perform worse than dystopia, to compare all other countries aganist.
+After we cleaned each individual data set, we merged the data sets into one data set. We wanted to ensure that we had regions connected to most of our countries in our final data set. Therefore, we joined our final data set with our tidied data from 2015 and 2016. We used these two years, as they measured the region those years and not later years. The countries measured across the years were similar and the region of a country never changes. So, we could match up the same country measured in later years to the earlier region feature. This allowed us to attach regions to 763 out of 782 instances in our final data set. We renamed the column Family in our final data set to Social Support. This was to show continuity as the surveyors renamed the feature in the later years of the support. However, the feature captured the same information over the entire data set. 
 
--   In the world bank world development indicators data set, we retained country, year, access to electricity, individuals using the internet, and birth rate. Country refers to name of the country. We derived year from the date feature, which had the year, month, and day. The year refers to the year the data was collected. Access to electricity refers to the percentage of the population that has access to electricity from zero percent to one hundred precent. Individuals using the internet refers to the percentage of the population using the internet from zero percent to one hundred percent. The birth rate refers to the birth rate per one thousand people. 
+#### World Bank Data Development Indicators
+[^2]
 
-- Our analysis will focus on happiness score and region from the world happiness report. In the world bank data set, we will focus on access to electricity, individuals using the internet, and birth rate. We will be using country and year from both data sets. 
+First, we read in the data set. (We read in the data file from our GitHub repository). 
 
--   We retained variables that will be necessary for answering our research questions such as birth rate, happiness score, etc.
+Then, we worked on tidying the data set. This involved deriving the year feature from the date column. We split the date column of year, month, and day into separate columns. We only kept the year column as the primary data set only used year. Moreover, the world bank data set measured each feature on January 1st, every year. So, year is the only thing that differentiates each date. We filtered the data set by the years of the primary data set. This means we only kept measurements from the years 2015, 2016, 2017, 2018, and 2019. We filtered the data set by the countries that appear in the primary data set. Additionally, we selected the features we wanted to examine in our analysis. This included the country name, the derived year, percentage of individuals with access to electricity, percentage of individuals using the internet, and birth rate. We chose these because they seemed the most interesting to us and did not have a majority of missing values. 
 
--   Unnecessary columns such as rule of law, agricultural land percent, forest land percent, etc. have been dropped to make the datasets more clear and concise.
+## Merging
 
-**Filtering and Cleaning:**
+We ensured the features we were using to join the two tidied tables, year and country, were the same data type. We joined the tidied world happiness report and world bank data set by ensuring the year and country names matched. We kept all of the records from our primary data set, the world happiness report. We eliminated records from our secondary data set, the world bank development indicators, if there was not a corresponding match of year and country in our primary data set. 
+Our final merged data set contained the features of countries surveyed in the world happiness report from 2015 to 2019. However, now the data set also contained world bank features of the same countries from 2015 to 2019. The new case of the merged data set are the features from both data sets of a country in a certain year.
 
--   Columns that were missing information in the secondary dataset were excluded to ensure that there was no bias within countries by excluding certain factors for some and including those influential factors for other regions.
+## Variable Selection
 
+We retained most of the variables from the world happiness report. The year feature is the year the surveyors took those measurements. The country feature is the name of the country. The region feature is the region the country belongs to. The happiness rank is the rank of the country based on their happiness score. The happiness score is the averaged score of the answer to a question across a sample of one thousand people in a certain year and from a certain country. The question, from a Gallup poll, is "How would you rate your happiness on a scale of zero to ten, where ten is the happiest." The surveyor tells individuals to imagine a ladder where the best possible life is the top rung of the ladder, ten, and the worst possible life is the bottom rung of the ladder, zero. This imaginary ladder is a "Cantrill ladder." Cantrill ladders are subjective measures as individuals self-anchor their "ladder" based on their perspective. If two people have radically different life experiences, then their ladder rungs look radically different. Economy (GDP per capita) is the extent to which GDP contributes to the calculation of the happiness score. This means, for each country, when there is a change in GDP, how much does that affect the happiness score. Family or social support is the extent to which the support of family and friends contributes to the calculation of the happiness score. This means, for each country, when there is a change in a person's support system, how much does that affect the happiness score. Health (Life Expectancy) is the extent to which the life expectancy of individuals in the country contributes to the calculation of the happiness score. This means, for each country, when there is a change in the average life expectancy, how much does that affect the happiness score. Freedom is the extent to which the perception of freedoms contributes to the calculation of the happiness score. This means, for each country, when there is a change in the perception of freedoms, how much does that affect the happiness score. Trust (Government Corruption) is the extent to which the perception of corruption contributes to the calculation of the happiness score. This means, for each country, when there is a change in the perception of corruption in the government, how much does that affect the happiness score. Generosity is the extent to which the perception of generosity contributes to the calculation of the happiness score. This means, for each country, when there is a change in the perception of generosity, how much does that affect the happiness score. Dystopia represents an imaginary country with the world's least happy people. This establishes a benchmark, as no country will perform worse than dystopia, to compare all other countries against.
 
-### FAIR AND CARE Principles:
+In the world bank development indicators data set, we retained country, year, access to electricity, individuals using the internet, and birth rate. Country refers to the name of the country. We derived year from the date feature, which had the year, month, and day. The year feature is the year the surveyors took those measurements.  Access to electricity refers to the percentage of the population that has access to electricity. This ranges from zero percent to one hundred percent. Individuals using the internet refers to the percentage of the population using the internet. This also ranges from zero percent to one hundred percent. The birth rate refers to the birth rate per one thousand people. 
 
-The datasets used in this report adhere to the FAIR & CARE principles, highlighting the availability and the eithics of the data:
+Our analysis will focus on the happiness score and region from the world happiness report data set. In the world bank data set, we will focus on access to electricity, individuals using the internet, and birth rate. We will be using country and year from both data sets. 
 
-## FAIR
+## Filtering and Cleaning
+
+When conducting analysis using features from the secondary data set, we removed any cases where features were missing.
+
+When conducting analysis using the region from the primary data set, we removed any cases where the region was missing. 
+
+Moreover, when constructing summary tables of the tidied data sets, we allowed for null values. We counteracted this by also including a count feature. Therefore, any viewer knows how representative any feature was of the entire data set. For example, if there are a high number of instances of the feature, there are a small number of missing values.
+
+## FAIR AND CARE Principles:
+
+The datasets used in this report adhere to the FAIR & CARE principles, highlighting the availability and the ethics of the data:
+
+#### FAIR
 
 **F- FINDABLE:**
 
-- Both the primary and secondary datasets can be found on Kaggle, which is a platform where people can find and publish datasets in a clear location.
+-Both the world happiness report and world bank data set are on Kaggle, which is a publicly available platform where people can find and publish data sets. 
 
 **A- ACCESSIBLE:**
 
-- Both datasets are accessible through Kaggle, allowing anyone to download and use the data at their leisure.
+- Both data sets are accessible through Kaggle, allowing anyone to download and use the data at their leisure.
 
 **I- INTEROPERABLE:**
 
-- Both datasets are in the form of .csv files, making the data compatible with many tools and platforms like R-Studio. 
+- Both data sets are in the form of .csv files, making the data compatible with many tools and platforms, like R-Studio. 
 
 **R- REUSABLE:**
 
-- Both datasets include metadata and documentation that supports this.
+- Both datasets include metadata and documentation that aligns with the metadata.
 
-- Through our data wrangling process, we changed the column name referring to family/social to social support. We also accounted for any data not measured as null. By doing so, we cleaned up the structure making it easier for future use.
+- In the world happiness report, we changed the column name referring to family/social to social support. We also accounted for any data not measured as null. By doing so, we cleaned up the structure making it easier for future use.
 
-## CARE
+#### CARE
 
 **C- COLLECTIVE BENEFIT:**
 
-- Although neither dataset involves specific communities, these are each meant to improve the global understanding of happiness and well-being.
+- Although neither data set involves specific communities, these are each meant to improve the global and country specific understanding of happiness and well-being.
 
 **A- AUTHORITY TO CONTROL:**
 
-- Data is collected at the country level and so, has no concerns surrounding individual control.
+- The surveyors collected the data at the country level. There are no concerns surrounding individual control.
 
-- Even though a country a person belongs to could appear high on the Happiness Score, it does not represent a specific individuals' experience in that country.
+- Even if a country has a high happiness score, it does not represent an individuals' experience in that country.
 
 **R- RESPONSIBILITY:**
 
-- The datasets are open to use, yet there are no warnings for use or misuse.
+- The data sets are open to use, yet there are no warnings for use or misuse.
 
 **E - ETHICS:**
 
-- The data in both sets were collected ethically through international surveys. However, we cannot make an assumption that individuals consented to this information being public. 
+- The companies collected the data ethically through international surveys. However, we cannot assume that individuals consented to this information being public.
 
-### Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA) for the World Happiness Index
 
-To uncover patterns in global well-being and address our research question, we conducted a comprehensive Exploratory Data Analysis (EDA) on both the World Happiness Index and World Bank datasets. This involved generating summary statistics and examining distributions of key variables across regions and development indicators. 
+To uncover patterns in global wellbeing, we conducted Exploratory Data Analysis (EDA) on the World Happiness Index [^1] and World Bank [^2] data sets. We generated summary statistics for each data set. Also, we explored correlations between features across both data sets. 
+
+We used EDA as we hoped to better understand the data, generate hypotheses, and develop research questions. Also, we analyzed each visualization after we created it, as opposed to seeking to affirm or reject a hypothesis. We created general visualizations of distributions of each feature to see what unexpected insights we gained. The visualizations we created seek to mitigate the harms of not examining all our data. When we examined Anscombe's quartet, each data set had the same summary statistics but different shapes. These were all in pursuit of building a data story with descriptive statistics, visualizations, and narrative text. Our statistics are descriptive as opposed to inferential, as we are not inferring values outside of our data range or predicting from a model of the data. 
+
+In our coding, we used Tidyverse more than we used base R. We were more confident with Tidyverse and naturally remembered functions from Tidyverse before base R. Also, we needed to complete a lot of data wrangling and Tidyverse has a lot of packages that are very helpful. We read in files remotely from GitHub, as opposed to locally. This allowed us to be fully immersed in utilizing GitHub. This method does not require another person to download our data set to their machine if they want to run our code. Therefore, this person does not lose storage space, and our code is more reproducible as it runs without any outside installation.
 
 ```{r}
 # Code Style Guide - The Tidyverse Style Guide
@@ -158,19 +183,6 @@ library(styler) # importing necessary libraries
 # Tidyverse Style Guide
 ```
 
-### World Happiness Index Data Wrangling and EDA
-
-World Happiness Index Data [^1]
-
-[^1]: "World Happiness Report." www.kaggle.com, www.kaggle.com/datasets/unsdsn/world-happiness.
-
-We are using EDA for analysis of both data sets initially as we are hoping to generate hypotheses and research questions from these visualizations and we are analyzing each visualization after we have created them. Also, we are asking general questions like the general distribution of each variable or plotting each variable in the world bank data set we are using against the happiness score to see what unexpected insights we gain. Moreover, we are attempting to build a data story, as we have descriptive statistics, visualizations, and narrative text. We are using descriptive statistics as opposed to inferential statistics, as we are not inferring values outside of the data range or predictions from a model of the data. 
-
-In our coding, we use Tidyverse more than we use base R. We feel more confident with Tidyverse and that we think of functions from Tidyverse before we think of functions from base R. Also, we need to complete a lot of data wrangling and tidyverse has a lot of packages that are useful. 
-
-We are reading in files remotely, from github, as opposed to locally. We chose to read in data from github to fully utilize and be immersed in using github. Moreover, this method does not require another person who wants to run our QMD file to download our data sets to their local device, taking up valuable storage space.
-
-@tbl-summaryvariablesworldhappiness provides the summary statistics for the Happiness Index dataset, highlighting central tendencies and variability across nine key metrics. 
 ```{r}
 ## World Happiness Index Data Wrangling and EDA
 
@@ -462,7 +474,7 @@ world_happiness_summary <- tidy_world_happiness |>
       min = ~ min(.x, na.rm = TRUE),
       q1 = ~ quantile(.x, probs = 0.25, na.rm = TRUE),
       median = ~ median(.x, na.rm = TRUE),
-      q2 = ~ quantile(.x, probs = 0.75, na.rm = TRUE),
+      q3 = ~ quantile(.x, probs = 0.75, na.rm = TRUE),
       max = ~ max(.x, na.rm = TRUE),
       sd = ~ sd(.x, na.rm = TRUE) # five number summary + count and standard
       # deviation, allowing for null values as for some variables measured
@@ -507,28 +519,9 @@ world_happiness_summary |>
     font_size = 8
   )
 ```
-**Key Insights:**
+  @tbl-summaryvariablesworldhappiness is a summary table of descriptive statistics of each of the features in the tidied world happiness report. This table allows us to better understand the shape of the distributions of each feature. Count denotes the number of instances observed for each feature. Min is the minimum value observed for each feature. Q1 is the point in the data where twenty five percent of the data falls below it for each feature. Median is the middle value observed for each feature. Q2 is the point in the data where seventy five percent of the data falls below it for each feature. Max is the maximum value observed for each feature. Sd is the standard deviation or how much the data deviates from the average for each feature. A low standard deviation means the range of possible values for the feature is small. A high standard deviation means the range of possible values is larger. This is a modification of the five number summary, that includes the number of observations (count) and the standard deviation. Each column represents a different statistic. Each row represents the statistical measures for a feature. Since there are 782 instances of the data in the tidied world happiness data, count shows there are no missing values for any of the features. Happiness score ranges widely, from a minimum of 2.69 to a maximum of 7.77. The high standard deviation of 1.12 supports this conclusion, as there is a wide range of possible values. Moreover, happiness score has a mean of 5.38. This might mean that the sampled population views five as the middle of the "ladder" or an average life. So, on average, people think their life is decent or average. However, if you forget the ladder goes from zero to ten, making five the middle, you would view five as slightly less than average in a ladder from one to ten. So, most people see their life as average or slightly worse than average. As evident by the median 1.12, support system, or support from friends and family has a big impact on happiness score. This could be tied to our evolutionary basis as social animals that need to interact with others. So, if someone is not able to have enough social support, that would affect their mood. Trust in government scores are notably low with a median of 0.09 and a maximum of 0.55. This possibly plays into the fact that people typically think of happiness in relation to themselves and their close family or friends. Therefore, a person's opinion on government corruption probably does not factor into their personal happiness.
 
-Happiness scores range widely (2.69-7.77), with a mean of 5.38 (~1.13 SD).
-
-GDP and life expectancy show right-skewed distributions (mean < median). 
-
-Government trust scores are notably low (mean 0.13, max 0.55). 
-
-In @tbl-summaryvariablesworldhappiness
-
-We created a summary table here, which displays descriptive statistics of our data. We wanted to gain an understanding of the shape and distribution of each feature.
-
-
-
-### World Bank Data Wrangling and EDA
-
-In the World Bank Data [^2]
-
-[^2]: González, Ariel. "World Bank World Development Indicators." Kaggle.com, 2022, www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators.
-
-@tbl-summaryworldbank summarizes 720 observations of critical development metrics like a country's birth rate, access to electricity and internet:
-
+## Exploratory Data Analysis (EDA) for the World Bank Development Indicators
 ```{r}
 ## World Bank Data Wrangling and EDA
 
@@ -574,16 +567,16 @@ In the World Bank Data [^2]
 # 5c. Use a left join on the world happiness index data and the world bank
 # data, using the columns country and year. Remove rows where there is no
 # data for individuals using internet, birth rate, and access to electricity
-# 6a. Create a scatter plot of percentage of individuals using the internet
-# versus the country's happiness score.
+# 6a. Create a scatter plot of access to electricity versus the country's
+# happiness score.
 # 6b. Set the x and y axis, the geometry of each mark, point, create labels,
 # and add black and white theme
-# 7a. Create a scatter plot of the birth rate versus the country's happiness
-# score.
+# 7a. Create a scatter plot of percentage of individuals using the internet
+# versus the country's happiness score.
 # 7b. Set the x and y axis, the geometry of each mark, point, create labels,
 # and add black and white theme
-# 8a. Create a scatter plot of access to electricity versus the country's
-# happiness score.
+# 8a. Create a scatter plot of the birth rate versus the country's happiness
+# score.
 # 8b. Set the x and y axis, the geometry of each mark, point, create labels,
 # and add black and white theme
 
@@ -658,7 +651,7 @@ world_bank_summary <- world_bank_tidy |>
       min = ~ min(.x, na.rm = TRUE),
       q1 = ~ quantile(.x, probs = 0.25, na.rm = TRUE),
       median = ~ median(.x, na.rm = TRUE),
-      q2 = ~ quantile(.x, probs = 0.75, na.rm = TRUE),
+      q3 = ~ quantile(.x, probs = 0.75, na.rm = TRUE),
       max = ~ max(.x, na.rm = TRUE),
       sd = ~ sd(.x, na.rm = TRUE)
     ) # five number summary + count and standard
@@ -702,15 +695,7 @@ world_bank_summary |>
     font_size = 8 # adding in kable styling
   )
 ```
-**Key Insights:**
-
-As shown in @fig-electricityplot, electricity access is bimodal as the median is 99.6% of the countries having access to electricity but the mean is 82.5% due to low access outliers. 
-
-As shown in @fig-birthrateplot, Birth rates vary significantly (a min of 6.4 and a max of 46.6), which suggests demographic transition stages (fluctuation between high ans low birth rates) within countries.
-
-As shown in n @fig-internetplot, the relationship appears positively correlated. Countries with low internet usage have lower happiness scores (as low as ~3), whereas countries with high internet usage (above 80%) cluster around higher happiness scores (6–8), suggesting internet usage may be associated with happiness.
-
-In @tbl-summaryworldbank
+  @tbl-summaryworldbank is a summary table of descriptive statistics of each of the features in the tidied world bank development indicators data set. Again, this table allows us to better understand the shape of the distributions of each feature. Count denotes the number of instances observed for each feature. Min is the minimum value observed for each feature. Q1 is the point in the data where twenty five percent of the data falls below it for each feature. Median is the middle value observed for each feature. Q2 is the point in the data where seventy five percent of the data falls below it for each feature. Max is the maximum value observed for each feature. Sd is the standard deviation or how much the data deviates from the average for each feature. A low standard deviation means the range of possible values for the feature is small. A high standard deviation means the range of possible values is larger. This is a modification of the five number summary, that includes the number of observations (count) and the standard deviation. Each column represents a different statistic. Each row represents the statistical measures for a feature. First, any viewer needs to be cognizant of the difference of scale between the features of access to electricity and individuals using the internet versus birth rate. Access to electricity and individuals using the internet are both percentages from zero to one hundred. Birth rate is per one thousand people and ranges from zero to one thousand. However, in this data set, birth ranges from a minimum of six to a maximum of forty-six. So, the birth rate at its maximum is less than the median of access to electricity and individuals using the internet. There can be no comparisons between birth rate and the other two features with these different scales. Access to electricity has a median of around ninety nine percent. This means the middle point of the data is a country where most of its inhabitants have access to electricity. This is great news overall for the world as access to electricity leads to a decrease in manual labor and increased opportunity. However, access to electricity also has a large standard deviation of around twenty-seven and a minimum of around four. This means there is still a long way to go for some countries to have consistent access to electricity. Not having access to electricity is probably an indicator of low development in other areas, like access to the internet. So, individuals using the internet have around the same amount of standard deviation as access to electricity. This indicates there is still a wide disparity in internet access. Moreover, when examining the country associated with the minimum value for access to electricity, they also have the minimum value for individuals using the internet. If there is no wide-ranging electricity access, there can be no wide-ranging internet access, as the internet is dependent on electricity. The median for individuals using the internet is around fifty-eight, much lower than access to electricity. We argue in the earlier years of the data set, 2015, there was no such a big push for the internet recreationally. YouTube and other popular websites were only created ten years ago or less. So, the world was still catching up with using the internet for free time.  Birth rate has a median of around seventeen and a maximum of around forty-six, indicating a wide range of birth rates worldwide. This could be due to cultural and social differences and pressures across cultures to have a differing number of children. Also, it could be due to the fact that with lacking infrastructure, like electricity, the infant mortality rate is higher. So, in order to raise a certain number of children to maturity, there is a higher birth rate.
 
 ```{r}
 # 5a. Merge world happiness index data and world bank data
@@ -736,65 +721,6 @@ merged_data <- total_data |>
 # three variables of interest, as want to compare features from world bank
 # to happiness score from world happiness index
 ```
-The case for the merged data set of the tidy world happiness data and world bank data is a set of features from both the world happiness report and world bank data set for a country in a specific year. The attributes are a combination of all of the attributes from the tidy world happiness data set and the tidy world bank data set.
-
-```{r}
-#| label: fig-internetplot
-#| fig-cap: "Happiness Score versus Percentage of Individuals Using the Internet"
-#| fig-pos: H
-#| fig-height: 5
-#| fig-alt: "Scatterplot of happiness score v internet"
-#| lst-cap: "Code Chunk for Making Happiness Score v Internet Figure"
-# 6a. Create a scatter plot of percentage of individuals using the internet
-# versus the country's happiness score.
-# 6b. Set the x and y axis, the geometry of each mark, point, create labels,
-# and add black and white theme
-ggplot(
-  data = merged_data, # merged data of tidy happiness index and tidy world
-  # bank, with rows where missing any features from world bank removed
-  mapping = aes(
-    x = individuals.using.internet,
-    y = Happiness.Score # plot happiness score v internet
-  )
-) +
-  geom_point() + # scatter plot
-  labs(
-    x = "Percentage of Individuals Using the Internet (0% - 100%)",
-    y = "Happiness Score (0 - 10)", # decimal value from 0 - 10
-    title = "Happiness Score v Percentage of Individuals Using the Internet"
-  ) +
-  theme_bw()
-```
-In @fig-internetplot
-
-```{r}
-#| label: fig-birthrateplot
-#| fig-cap: "Happiness Score versus Birth Rate"
-#| fig-pos: H
-#| fig-height: 5
-#| fig-alt: "Scatterplot of happiness score v birth rate"
-#| lst-cap: "Code Chunk for Making Happiness Score v birth rate Figure"
-# 7a. Create a scatter plot of the birth rate versus the country's happiness
-# score.
-# 7b. Set the x and y axis, the geometry of each mark, point, create labels,
-# and add black and white theme
-ggplot(
-  data = merged_data, # merged data of tidy happiness index and tidy world
-  # bank, with rows where missing any features from world bank removed
-  mapping = aes(
-    x = birth.rate,
-    y = Happiness.Score # plot happiness score v birth rate
-  )
-) +
-  geom_point() + # scatter plot
-  labs(
-    x = "Birth Rate (per 1,000 people)",
-    y = "Happiness Score (0 - 10)", # decimal score 0 - 10
-    title = "Happiness Score v Birth Rate"
-  ) +
-  theme_bw()
-```
-In @fig-birthrateplot
 
 ```{r}
 #| label: fig-electricityplot
@@ -803,9 +729,9 @@ In @fig-birthrateplot
 #| fig-height: 5
 #| fig-alt: "Scatterplot of happiness score v electricity"
 #| lst-cap: "Code Chunk for Making Happiness Score v eletricity Figure"
-# 8a. Create a scatter plot of access to electricity versus the country's
+# 6a. Create a scatter plot of access to electricity versus the country's
 # happiness score.
-# 8b. Set the x and y axis, the geometry of each mark, point, create labels,
+# 6b. Set the x and y axis, the geometry of each mark, point, create labels,
 # and add black and white theme
 ggplot(
   data = merged_data, # merged data of tidy happiness index and tidy world
@@ -816,6 +742,7 @@ ggplot(
   )
 ) +
   geom_point() + # scatter plot
+  ylim(0, 10) + # making sure y axis go from zero to ten (happiness score)
   labs(
     x = "Percentage of Individuals with Access to Electricity (0% - 100%)",
     y = "Happiness Score (0 - 10)", # decimal score 0 - 10
@@ -823,13 +750,72 @@ ggplot(
   ) +
   theme_bw()
 ```
-In @fig-electricityplot
+  In @fig-electricityplot, the x axis represents the percentage of individuals in the country with access to electricity, ranging from zero to one hundred present. The ticks on the x axis are zero, twenty-five, fifty, seventy-five, and one hundred. The y axis represents the happiness score of that country as a decimal from zero to ten. The ticks on the y axis are zero two and a half, five, seven and a half, and ten. Each point represents a country's happiness score versus their percentage of individuals with access to electricity. The graph does not show a strong correlation between an increase in access to electricity and an increase in happiness score. As the percentage of individuals with electricity increases, the happiness score stays in a similar range of around two to seven, with a small increase in happiness score. In @tbl-summaryworldbank, the median for access to electricity was around ninety-nine, which shows in @fig-electricityplot. There is a cluster of points on the right of the figure, around one hundred. Moreover, the wide range of access to electricity values in the figure, matches up with the large standard deviation of the feature. The reason access to electricity does not lead to an increase in happiness score could be because developed countries take access to electricity for granted. If someone has always grown up with access to electricity, they probably are not as thankful as someone who gains electricity. Subjectively, these two individuals value electricity differently due to their differing experiences. This parallels how the Cantrill ladder allows respondents to subjectively anchor themselves in happiness scoring. Someone who has always had electricity, does not consider electricity as something that increases their happiness, but as a baseline expectation.
+
+```{r}
+#| label: fig-internetplot
+#| fig-cap: "Happiness Score versus Percentage of Individuals Using the Internet"
+#| fig-pos: H
+#| fig-height: 5
+#| fig-alt: "Scatterplot of happiness score v internet"
+#| lst-cap: "Code Chunk for Making Happiness Score v Internet Figure"
+# 7a. Create a scatter plot of percentage of individuals using the internet
+# versus the country's happiness score.
+# 7b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+ggplot(
+  data = merged_data, # merged data of tidy happiness index and tidy world
+  # bank, with rows where missing any features from world bank removed
+  mapping = aes(
+    x = individuals.using.internet,
+    y = Happiness.Score # plot happiness score v internet
+  )
+) +
+  geom_point() + # scatter plot
+  ylim(0, 10) + # making sure y axis go from zero to ten (happiness score)
+  labs(
+    x = "Percentage of Individuals Using the Internet (0% - 100%)",
+    y = "Happiness Score (0 - 10)", # decimal value from 0 - 10
+    title = "Happiness Score v Percentage of Individuals Using the Internet"
+  ) +
+  theme_bw()
+```
+  In @fig-internetplot, the x axis represents the percentage of individuals in the country with access to the internet, ranging from zero to one hundred present. The ticks on the x axis are zero, twenty-five, fifty, seventy-five, and one hundred. The y axis represents the happiness score of that country as a decimal from zero to ten. The ticks on the y axis are zero two and a half, five, seven and a half, and ten. Each point represents a country's happiness score versus their percentage of individuals with access to the internet. The graph does show a stronger positive correlation between an increase in access to the internet and an increase in happiness score, as opposed to @fig-electricityplot. As the percentage of individuals with the internet increases, the happiness score changes from around two to five to around six to seven. The percentage of individuals using the internet shows a relatively even distribution across its entire range. In @tbl-summaryworldbank, quartile one sits at around twenty four percent, the median sits at around fifty eight percent, and quartile three sits at around seventy-nine percent. This corroborates the relatively even distribution across the x axis of the percentage of individuals using the internet in @fig-internetplot. Internet usage might have a stronger relationship to happiness score, as opposed to access to electricity, as most individuals use the internet for fun. Individuals can use the internet for communicating with friends and entertaining themselves. Internet usage can give individuals a greater appreciation of their life, as they are able to observe a wider range of types of life. 
+
+```{r}
+#| label: fig-birthrateplot
+#| fig-cap: "Happiness Score versus Birth Rate"
+#| fig-pos: H
+#| fig-height: 5
+#| fig-alt: "Scatterplot of happiness score v birth rate"
+#| lst-cap: "Code Chunk for Making Happiness Score v birth rate Figure"
+# 8a. Create a scatter plot of the birth rate versus the country's happiness
+# score.
+# 8b. Set the x and y axis, the geometry of each mark, point, create labels,
+# and add black and white theme
+ggplot(
+  data = merged_data, # merged data of tidy happiness index and tidy world
+  # bank, with rows where missing any features from world bank removed
+  mapping = aes(
+    x = birth.rate,
+    y = Happiness.Score # plot happiness score v birth rate
+  )
+) +
+  geom_point() + # scatter plot
+  ylim(0, 10) + # making sure y axis go from zero to ten (happiness score)
+  xlim(2, 50) + # making sure x axis go from zero to fifty (birth rate)
+  labs(
+    x = "Birth Rate (per 1,000 people)",
+    y = "Happiness Score (0 - 10)", # decimal score 0 - 10
+    title = "Happiness Score v Birth Rate"
+  ) +
+  theme_bw()
+```
+  In @fig-birthrateplot, the x axis represents the birth rate in the country, per one thousand people. This ranges from around five to around fifty per one thousand. The ticks on the x axis are zero, ten, twenty, thirty, forty, and fifty. The y axis represents the happiness score of that country as a decimal from zero to ten. The ticks on the y axis are zero two and a half, five, seven and a half, and ten. Each point represents a country's happiness score versus their birth rate per one thousand people. The graph does show a strong negative correlation between an increase in the birth rate and a decrease in happiness score, as opposed to @fig-electricityplot and  @fig-internetplot. As the birth rate increases, the happiness score changes from around five to seven to around three to five. As seen in @tbl-summaryworldbank, there is a large range, from a minimum of around six to a maximum of around forty-six. This is corroborated in the graphic, as the x axis, or birth rate, has a large range. There is a slight clustering of birth rates around ten to twenty, and less from twenty to fifty. The birth rate and happiness correlation could exist as an indicator of other developmental factors. As stated previously, if there is a high birth rate, there could also be a high infant mortality rate. Also, countries with a higher birth rate could coincidentally have lower happiness scores. Or, there could be a confounding factor, like access to medical care, that is spuriously correlated with birth rate and actually causing the decrease in happiness score.
 
 ## Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries
 
-In the second half of the report, we are using CDA as opposed to EDA in the first half of the report, as we are trying to confirm or deny our hypotheses or research questions. For example, the line plot is meant to answer the specific question of time affecting a country's happiness score.
-
-The line chart, @fig-finalhappinessovertimeplot, tracks happiness scores over five years for the top and bottom 5 countries in the world happiness index rankings. This visualization can help show us whether countries are resistant to change in happiness scores or not.
+In the second half of the report, we used CDA as opposed to EDA, as we were trying to confirm or deny our hypotheses or research questions. For example, we constructed the line plot to confirm or deny that time affects a country's happiness score.
 
 ```{r}
 ## Visualization One - Line Plot of Happiness Score over time between the Top Five and Bottom Five Countries
@@ -963,6 +949,10 @@ countries_data <- bind_rows(
 # legend, dual encoding for discriminatory/color blindness
 # 5e. Add the labels for the title, each axis, and the color/line type
 # 5f. Add black and white theme
+
+# countries_data$Country <- c("Switzerland", "Iceland", "Denmark", "Norway", "Canada", "Rwanda", "Benin", "Syria", "Burundi", "Togo")
+countries_data$Country <- factor(countries_data$Country, levels = c("Switzerland", "Iceland", "Denmark", "Norway", "Canada", "Rwanda", "Benin", "Syria", "Burundi", "Togo"))
+
 ggplot(
   data = countries_data, # data of top five and bottom five happiest
   # countries from 2015 and 2019 (country, year, happiness score)
@@ -1033,6 +1023,7 @@ ggplot(
       # corresponding happiness score rank
     )
   ) +
+  ylim(0, 10) +
   labs(
     title = "Change in Happiness of Most and Least Happy Countries",
     x = "Year",
@@ -1042,26 +1033,9 @@ ggplot(
   ) +
   theme_bw() # add theme
 ```
-
-In @fig-finalhappinessovertimeplot
-
-**Key Insights:**
-
--   **Distinct Trend Lines:**
-
-    -   We can see that the top 5 countries are all nearly horizontal and are tightly clustered between scores 7.2-7.6, confirming stability. The bottom 5 lines are also almost clustered together in the 3.0-3.9 range, with some outliers like the country of Rwanda that shows a strong upward trend.
-
--   **Economic Shifts:**
-
-    -   We can notice that all the top five countries seem to have a small downward trend starting from 2017, which can suggest a global issue, which has affected these major countries, hence the reason why there is no outlier, because all the countries are following a similar trend [^2].
-
-    -   We can also see that there are some outliers in the bottom five, like the country of Rwanda, which shows us that there are efforts being made in their respective governments for the betterment of society [^2].
-
--   But even if the countries in the bottom five do seem to have an upward trend, we can see that the difference in scores between the top and bottom five are still drastic at the end of the five-year time period, suggesting that there is still some form of consistency between the scores.
+  In @fig-finalhappinessovertimeplot, the axis is the year. The ticks on the x axis are 2015, 2016, 2017, 2018, and 2019, the range of the world happiness report data set [^1]. The y axis is the happiness score of each country in decimal form from zero to ten. The ticks on the y axis are zero, two and a half, five, seven and a half, and ten. Each line represents a country's change in happiness score from 2015 to 2019. Each line has been dual encoded with a color-blind friendly palette and line shape., with a legend on the right side of the graphic. The legend denotes which color and line type corresponds to each country. Moreover, the legends are ordered by and states where each country stood in their happiness score in 2015. Switzerland, in long dashed light blue, had the highest happiness score in 2015. Iceland, in long dashed red, has the second highest happiness score. Denmark, in short dashed yellow, had the third highest happiness score. Norway, in short dashed green, had the fourth highest happiness score. Canda, in short dashed purple, had the fifth highest happiness score. Rwanda in long dashed pink, has the fifth lowest happiness score. Benin in medium dashed sea foam, has the fourth lowest happiness score. Syria, in solid gold, has the third lowest happiness score. Burundi, in medium dashed dark pink, had the second lowest happiness score. Togo, in short dashed dark red, had the lowest happiness score. The top five countries, or the top five happiest countries in 2015, are tightly clustered around seven and a half, confirming stability. The summary table, @tbl-summaryvariablesworldhappiness, confirms this as the maximum happiness score is right around seven and a half. The bottom five countries, or the five least happiest countries in 2015, are also clustered around two and a half to four. The summary table, @tbl-summaryvariablesworldhappiness, confirms this as the minimum happiness score is right around two and a half. However, the outlier of Benin, the fourth lowest happiness score in 2015, shows strong improvement. Benin's happiness score, over 2015 to 2019, moved from around three to five, or two whole ladder rungs. So, Benin teaches us that governments and individuals can undertake actions to better society. An interesting area of further research would be to examine features outside our data set to investigate how their ranking increased so quickly. Since this is a four-to-five-year period, there could have been a change in regime in the government leading to this score change. Moreover, the world happiness report [^1] itself could have influenced Benin to change their current policies. This conclusion generalizes to all of the countries who were the least happy in 2015, as all show score improvement over the short range of four years. This upward trend cannot be mistaken for complacency as the gap between the top five and bottom five countries in 2019 is still large. The highest happiness score of the bottom five countries, Benin with around a five, is still two full rungs away from the top five happiness scores, around seven and a half. Overall, we can argue there is consistency among the scores, as the happiest countries' scores remained high and the least happiest countries' scores remained comparatively low. Since these happiness scores are fairly consistent, the survey must be measuring similar features every year. If the scores were extremely variable, that introduces concerns of inconsistency and incorrect collection. Arguable, the scores remain consistent, as there is not a way to radically change an entire country in four years. If these trends persisted over fifty years, for example, that trend is much stronger. Or, the argument can be made that staying happy and having a high quality of life is much easier than gaining a high happiness score.
 
 ## Visualization Two - Frequency Table of Happiness Scores and Region
-
-In @tbl-regionvhappinessscore, we examinesthe distribution of happiness scores across 10 global regions over a five-year period, categorizing countries into score ranges of 2.5 to 8 to identify patterns. With this data, we can explore the question of whether happiness rankings stay consistent over time.
 
 ```{r}
 ## Visualization Two - Frequency Table of Happiness Scores and Region
@@ -1210,25 +1184,9 @@ world_happy_freq |>
     font_size = 3 # add in kable styling
   )
 ```
-In @tbl-regionvhappinessscore, we created a frequency table, as opposed to a summary table, as we are grouping by the categorical attributes of region and the binned happiness score. We are trying to compare the absolute and relative case frequencies across region and score.
-
-**Key Insights:**
-
-**Regional Happiness Clusters Persist Over Time (from 2015-2019):**
-
-Regions such as Australia/NZ (100% in the 6.5-7.5 range) and Western Europe (~67.96% in the 6.5-8 range) @tbl-summaryworldbank consistently rank the highest, suggesting long-established advantages like strong GDP, social support, etc [^1]. 
-
-There is also a low score stability with a region like Sub-Saharan Africa which dominates the bottom tiers (21.1% in the 2.5-3.5 range)@tbl-summaryworldbank, indicating persistent challenges such as limited infrastructure investments, and political instability [^1]. 
-
-**There is Limited Mobility Between Tiers:**
-
-While there are some regions such as the Middle East/North Africa and Latin America, that show a moderate spread across the mid-range scores, indicating some form of change, there are no countries that transitioned from the bottom quartile (<4) to the top quartile (>6) or vice versa [^1]. 
-
-This answers our first research question, proving that happiness is consistent and that there is little change when it comes to happiness scores over time. The countries that had an initially high-score continue to consistently stay high and similarly the countries that initially had low score consistently have stayed in the lower quartile, showing that there long-term factors such as GDP and governance that plays a role in short-term fluctuations. 
+  In @tbl-regionvhappinessscore, we created a frequency table as opposed to a table of summary statistics. Instead of obtaining measures of quantitative features, as we did in @tbl-summaryvariablesworldhappiness and @tbl-summaryworldbank, we grouped by two categorical attributes. Our columns represent the binned happiness score. Originally, the happiness score was a decimal, quantitative feature. However, frequency tables can only use categorical features. Moreover, every country probably has a slightly different decimal happiness score. For example, one country could have a happiness score of 3.3 and another country could have a happiness score of 3.4. If we had just grouped by the straight decimal value, there would be no ability to generalize our conclusions. But since the example happiness scores are so similar, grouping allows us to draw conclusions about the scores generally. Also, whenever we grouped the scores by whole numbers, like one to two and two to three, the measure was too generalized and without nuance. We decided to group by halves, as the groupings are more clear across regions. The rows of the frequency table represent each region from the world happiness report data set [^1]. We removed any countries that did not have a region attached. The bins start from two and a half to three, as the minimum value in this set was two and a half. The bins end at seven and a half to eight as the maximum value in this eight. The bins go from two and half to three inclusive, three to three and a half inclusive, three and a half to four inclusive, four to four and a half inclusive, four and a half to five inclusive, five to five and a half inclusive, five and a half to six inclusive, six to six and a half inclusive, six and a half to seven inclusive, seven to seven and a half inclusive, and seven and a half inclusive to eight inclusive. The number, or counts in each cell, is the absolute frequency. The percentage in each cell, as seen in the parentheses with a percentage label, is the relative frequency compared to the number of countries in the entire table. For example, in the row Eastern Asia and the column four and a half to five, the cell count indicates three countries in the Eastern Asia region had happiness scores in the range two and a half to three. The percentage, 0.39%, indicates that Eastern Asian countries with a happiness score between two and a half to three make up 0.39% of all the countries in the frequency table. There is a total row at the bottom, which denotes the total number of countries that fall into each happiness score bucket. For example, the value of six from the rows total and column two and half to three, means there were six countries in the tidy data set with a happiness score between two and a half and three. There is a total column, which denotes the total number of countries in each region. For example, the value of ten from the Australia and New Zealand row and total column, means there were ten countries in the tidy data set from the Australia and New Zealand region. As seen in @fig-finalhappinessovertimeplot, the top four happiest countries, Switzerland, Iceland, Denmark, and Norway, all belong to the Western European region. Canda, the fifth happiest country, belongs to the North American region. For the five lowest happiness scores, Rwanda, Benin, Burundi, and Togo, all belong to the Sub-Saharan Africa region. Syria, the third lowest happiness score, belongs to the Middle Eastern and North African region. The Australian and New Zealand region have one hundred percent of their countries in the seven to seven and a half happiness score, one bucket down from the maximum happiness score bucket. Also, Western Europe, which contains the top four happiest countries in @fig-finalhappinessovertimeplot, have around two thirds of their countries in the six and a half to eight happiness scores. They are the only region with any country, much less sixteen, in the highest buck of seven and a half to eight. This probably indicates that both regions are overall stable and strong, pointing to long established advantages like strong social support and GDP. The North American region and Canada, the fifth happiest country, follow this pattern with one hundred percent of their happiness scores in six and a half to seven and a half. In the Sub-Saharan African region, one fifth of their total countries are in the two and a half to three and half range for happiness scores. Also, there are no countries in the happiness range of six to eight. Four of the five least happy countries in @fig-finalhappinessovertimeplot, belong to the Sub-Saharan African region, which corroborates this finding. This points to persistent challenges of limited infrastructure, investments, political unrest, and general instability. Moreover, we argue when there is unrest in a neighboring country, that unrest will affect every country near it. Neighboring countries exchange natural resources, trade, and workers, unrest affects all these factors. In the Middle Eastern and North Africa region with Syria, the third lowest happiness score, there is a large range of happiness scores from three to seven and a half. However, except for the regions of Latin America and the Caribbean and the Middle east and Northern Africa, most regions cluster around a few happiness score buckets. This answers our research question of regions affecting happiness scores, as scores in each region are fairly consistent. Each region with countries with higher happiness scores, Australia and New Zealand and Western Europe, the other countries' scores clustered nearby. The region with countries with lower happiness scores, Sub-Saharan Africa, Australia, the other countries' scores clustered nearby. The long-term factors of GDP, governance, and infrastructure play a role in regions maintaining or losing stability.
 
 ## Visualization Three - Scatter plot of Happiness Score v Birth Rate
-
-In @fig-finalbirthrateplot, we explore the relationship between national birth rates (per 1,000 people) and happiness scores of over 150+ countries from 2015-2019 to test the hypothesis that higher birth rates may strain resources and lower happiness.
 
 ```{r}
 ## Visualization Three - Scatter plot of Happiness Score v Birth Rate
@@ -1292,6 +1250,8 @@ ggplot(
     colour = "#000000", # color line black
     linewidth = 2 # set line width
   ) +
+  xlim(0, 50) + # ensure birth rate go from zero to fifty
+  ylim(0, 10) + # ensure happiness score go from zero to ten
   labs(
     x = "Birth Rate (per 1,000 people)",
     y = "Happiness Score (0 - 10)",
@@ -1301,37 +1261,32 @@ ggplot(
   ) +
   theme_bw() # add in theme
 ```
-In @fig-finalbirthrateplot
-
-**Key Insights:**
-
--   **Strong Negative Correlation** (r = -0.72):
-
-    -   Countries with birth rates (\>25) cluster in low happiness scores (3-5), while those with birth rates (\<15) score above 6.
-
--   **Socioeconomic Factors:**
-
-    -   We can see that nations with a low birth rate are the ones that are happier, and from our previous visualizations, we can incur that regions with universal secondary education and with highly urbanized societies (ex. Australia/NZ, Western Europe, etc.) are the happiest and these are the regions that also have a low birth rate.
-
-    -   In the same way, we can also come to the conclusion that the regions with a high birth rate have a lower happiness score and that these regions can also have issues such as political instability and a lower GDP.
+  In @fig-finalbirthrateplot, the x axis represents the birth rate in the country, per one thousand people. This ranges from around five to around fifty per one thousand. The ticks on the x axis are zero, ten, twenty, thirty, forty, and fifty. The y axis represents the happiness score of that country as a decimal from zero to ten. The ticks on the y axis are zero two and a half, five, seven and a half, and ten. Each point represents a country's happiness score versus their birth rate per one thousand people. The graph does show a strong negative correlation between an increase in the birth rate and a decrease in happiness score, as shown in @fig-birthrateplot. As the birth rate increases, the happiness score changes from around five to seven to around three to five. These insights are dual encoded by the color gradient of the happiness score. The lighter blue colors represent higher happiness scores, and darker blue colors represent lower happiness scores. So, as the happiness score decreases, the color gradient becomes darker. Additionally, the black linear trend line represents the happiness score as a function of birth rate. The slope of this line is fairly severe, indicating as the birth rate increases, there is a large decrease in the happiness score. The trend of happiness score decreasing as birth rate increases is clearly seen by the gradient and trend line. As seen in @tbl-summaryworldbank, there is a large range, from a minimum of around six to a maximum of around forty-six. This is corroborated in the graphic, as the x axis, or birth rate, has a large range. There is a slight clustering of birth rates around ten to twenty and happiness scores above six. The birth rates above twenty have happiness scores in the range of three to six. The birth rate and happiness correlation could exist as an indicator of other developmental factors. As seen in @tbl-regionvhappinessscore, regions with universal secondary education and urbanized societies, like Australia and New Zealand or Western Europe, are the happiest. Moreover, these are the regions with a lower birth rate. On the other hand, regions with a higher birth rate have a lower happiness score. Also, these regions are dealing with issues of political instability and a less diverse economy.
 
 ## Conclusion
 
-This project’s analysis of global happiness data reveals two critical insights:
+This project’s analysis of global happiness data reveals three critical insights:
 
-1.  **Happiness is Persistent Over Time:**
+1.  Happiness is Persistent Over Time:
 
-    -   The happiest countries maintained their high scores with minimal fluctuations, while the least happy remained stagnant. **Only a few exceptions, like Rwanda, showed meaningful improvement**, suggesting that well-being is deeply tied to long-term structural factors like governance, economic stability, and social trust.
+    -   The happiest countries maintained their high scores with minimal fluctuations, while the least happy remained stagnant. Only a few exceptions, like Benin, showed meaningful improvement, suggesting that well-being is deeply tied to long-term structural factors like governance, economic stability, and social trust.
 
-2.  **Birth Rates and Happiness Are Strongly Linked**
+2.  Happiness is Persistent Over Regions:
 
-    -   Higher birth rates correlate with lower happiness, reflecting challenges like limited resources and gender inequality. However, **wealth and policy can override this trend**, as seen in Gulf States with moderate happiness despite higher birth rates.
+    -   If one country in the region is stable and happy, then it is likely that other neighbors can learn from their success. However, if one country in the region is unstable, that opens up the potential for their instability to influence other countries in the region. As no country is an island, or dependent on trade from other countries, insulating a country from unstable neighbors is extremely hard. 
 
-In the end, we can come to the conclusion that happiness is not static, but meaningful change requires systemic investment and not just short-term fixes. The visualizations confirm that while outliers exist, **most nations remain locked in their happiness tier over time**.
+3.  Birth Rates and Happiness Are Strongly Linked
 
+    -   Higher birth rates correlate with lower happiness, reflecting challenges like limited resources and gender inequality. However, wealth and policy can override this trend, as seen in Gulf States with moderate happiness despite higher birth rates.
+
+In the end, we can come to the conclusion that happiness is not static, but meaningful change requires systematic investment and not just short-term fixes.
 
 ## References
+[^1]: "World Happiness Report." www.kaggle.com, www.kaggle.com/datasets/unsdsn/world-happiness.
+
 "World Happiness Report." www.kaggle.com, www.kaggle.com/datasets/unsdsn/world-happiness.
+
+[^2]: González, Ariel. "World Bank World Development Indicators." Kaggle.com, 2022, www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators.
 
 González, Ariel. "World Bank World Development Indicators." Kaggle.com, 2022, www.kaggle.com/datasets/nicolasgonzalezmunoz/world-bank-world-development-indicators.
 
