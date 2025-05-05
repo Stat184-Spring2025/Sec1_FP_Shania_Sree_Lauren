@@ -853,14 +853,15 @@ In the second half of the report, we used CDA as opposed to EDA, as we were tryi
 # country and the year, which would show each country twice: the score in
 # 2015 and the score in 2019. Lastly, summarize each by the mean Happiness
 # Score
-# 5a. Specify data, x axis, y axis, color, and line type
-# 5b. Set the line width
-# 5c. Specify the color of each line and the corresponding label on the
+# 5a. Reorder countries by descending happiness score
+# 6a. Specify data, x axis, y axis, color, and line type
+# 6b. Set the line width
+# 6c. Specify the color of each line and the corresponding label on the
 # legend, using a color blind friendly palette
-# 5d. Specify the type of each line and the corresponding label on the
+# 6d. Specify the type of each line and the corresponding label on the
 # legend, dual encoding for discriminatory/color blindness
-# 5e. Add the labels for the title, each axis, and the color/line type
-# 5f. Add black and white theme
+# 6e. Add the labels for the title, each axis, and the color/line type
+# 6f. Add black and white theme
 ```
 
 ```{r}
@@ -934,6 +935,12 @@ countries_data <- bind_rows(
 ```
 
 ```{r}
+# 5a. Reorder countries by descending happiness score
+countries_data$Country <- factor(countries_data$Country, levels = c("Switzerland", "Iceland", "Denmark", "Norway", "Canada", "Rwanda", "Benin", "Syria", "Burundi", "Togo")) #reorder countries by
+# descending happiness scores
+```
+
+```{r}
 #| label: fig-finalhappinessovertimeplot
 #| fig-cap: "Happiness Score Change between the top five and bottom five Countries in 2015 vs. 2019"
 #| fig-alt: "Final Line plot of happiness score over time"
@@ -941,18 +948,14 @@ countries_data <- bind_rows(
 #| fig-pos: H
 #| fig-height: 5
 #| fig-width: 10
-# 5a. Specify data, x axis, y axis, color, and line type
-# 5b. Set the line width
-# 5c. Specify the color of each line and the corresponding label on the
+# 6a. Specify data, x axis, y axis, color, and line type
+# 6b. Set the line width
+# 6c. Specify the color of each line and the corresponding label on the
 # legend, using a color blind friendly palette
-# 5d. Specify the type of each line and the corresponding label on the
+# 6d. Specify the type of each line and the corresponding label on the
 # legend, dual encoding for discriminatory/color blindness
-# 5e. Add the labels for the title, each axis, and the color/line type
-# 5f. Add black and white theme
-
-# countries_data$Country <- c("Switzerland", "Iceland", "Denmark", "Norway", "Canada", "Rwanda", "Benin", "Syria", "Burundi", "Togo")
-countries_data$Country <- factor(countries_data$Country, levels = c("Switzerland", "Iceland", "Denmark", "Norway", "Canada", "Rwanda", "Benin", "Syria", "Burundi", "Togo"))
-
+# 6e. Add the labels for the title, each axis, and the color/line type
+# 6f. Add black and white theme
 ggplot(
   data = countries_data, # data of top five and bottom five happiest
   # countries from 2015 and 2019 (country, year, happiness score)
@@ -990,9 +993,8 @@ ggplot(
       "Benin - Fourth Lowest Happiness Score",
       "Syria - Third Lowest Happiness Score",
       "Burundi - Second Lowest Happiness Score",
-      "Togo - Lowest Happiness Score" # change order of countries from
-      # alphabetical to by happiness score, manually label each country with
-      # corresponding happiness score rank
+      "Togo - Lowest Happiness Score" #manually label each country with corresponding happiness
+      # score rank
     )
   ) +
   scale_linetype_manual(
@@ -1018,12 +1020,11 @@ ggplot(
       "Benin - Fourth Lowest Happiness Score",
       "Syria - Third Lowest Happiness Score",
       "Burundi - Second Lowest Happiness Score",
-      "Togo - Lowest Happiness Score" # change order of countries from
-      # alphabetical to by happiness score, manually label each country with
-      # corresponding happiness score rank
+      "Togo - Lowest Happiness Score" #manually label each country with corresponding happiness
+      # score rank
     )
   ) +
-  ylim(0, 10) +
+  ylim(0, 10) + #ensure y axis from zero to ten, range of happiness rank
   labs(
     title = "Change in Happiness of Most and Least Happy Countries",
     x = "Year",
